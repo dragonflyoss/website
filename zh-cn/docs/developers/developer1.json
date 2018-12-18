@@ -1,7 +1,7 @@
 {
   "filename": "developer1.md",
   "__html": "<p>正文内容</p>\n",
-  "link": "/zh-cn/docs/developers/developer1.html",
+  "link": "\\zh-cn\\docs\\developers\\developer1.html",
   "meta": {
     "title": "网页标签标题",
     "keywords": "关键词1，关键词2，关键词3",

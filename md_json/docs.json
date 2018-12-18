@@ -1,18 +1,23 @@
 {
   "en-us": [
     {
-      "filename": "demo1.md",
-      "link": "/en-us/docs/demo1.html",
+      "filename": "api.md",
+      "link": "\\en-us\\docs\\api.html",
       "meta": {}
     },
     {
-      "filename": "demo2.md",
-      "link": "/en-us/docs/demo2.html",
+      "filename": "dfdaemon.md",
+      "link": "\\en-us\\docs\\cli_ref\\dfdaemon.html",
+      "meta": {}
+    },
+    {
+      "filename": "dfget.md",
+      "link": "\\en-us\\docs\\cli_ref\\dfget.html",
       "meta": {}
     },
     {
       "filename": "developer1.md",
-      "link": "/en-us/docs/developers/developer1.html",
+      "link": "\\en-us\\docs\\developers\\developer1.html",
       "meta": {
         "title": "tab title",
         "keywords": "key1,key2,key3",
@@ -20,25 +25,65 @@
       }
     },
     {
-      "filename": "demo3.md",
-      "link": "/en-us/docs/dir/demo3.html",
+      "filename": "faq.md",
+      "link": "\\en-us\\docs\\faq.html",
+      "meta": {}
+    },
+    {
+      "filename": "terminology.md",
+      "link": "\\en-us\\docs\\overview\\terminology.html",
+      "meta": {}
+    },
+    {
+      "filename": "what_is_dragonfly.md",
+      "link": "\\en-us\\docs\\overview\\what_is_dragonfly.html",
+      "meta": {}
+    },
+    {
+      "filename": "quickstart.md",
+      "link": "\\en-us\\docs\\quickstart.html",
+      "meta": {}
+    },
+    {
+      "filename": "download_files.md",
+      "link": "\\en-us\\docs\\userguide\\download_files.html",
+      "meta": {}
+    },
+    {
+      "filename": "install_client.md",
+      "link": "\\en-us\\docs\\userguide\\install_client.html",
+      "meta": {}
+    },
+    {
+      "filename": "install_server.md",
+      "link": "\\en-us\\docs\\userguide\\install_server.html",
+      "meta": {}
+    },
+    {
+      "filename": "supernode_configuration.md",
+      "link": "\\en-us\\docs\\userguide\\supernode_configuration.html",
       "meta": {}
     }
   ],
   "zh-cn": [
     {
-      "filename": "demo1.md",
-      "link": "/zh-cn/docs/demo1.html",
+      "filename": "api.md",
+      "link": "\\zh-cn\\docs\\api.html",
       "meta": {}
     },
     {
-      "filename": "demo2.md",
-      "link": "/zh-cn/docs/demo2.html",
+      "filename": "dfdaemon.md",
+      "link": "\\zh-cn\\docs\\cli_ref\\dfdaemon.html",
+      "meta": {}
+    },
+    {
+      "filename": "dfget.md",
+      "link": "\\zh-cn\\docs\\cli_ref\\dfget.html",
       "meta": {}
     },
     {
       "filename": "developer1.md",
-      "link": "/zh-cn/docs/developers/developer1.html",
+      "link": "\\zh-cn\\docs\\developers\\developer1.html",
       "meta": {
         "title": "网页标签标题",
         "keywords": "关键词1，关键词2，关键词3",
@@ -46,8 +91,43 @@
       }
     },
     {
-      "filename": "demo3.md",
-      "link": "/zh-cn/docs/dir/demo3.html",
+      "filename": "faq.md",
+      "link": "\\zh-cn\\docs\\faq.html",
+      "meta": {}
+    },
+    {
+      "filename": "terminology.md",
+      "link": "\\zh-cn\\docs\\overview\\terminology.html",
+      "meta": {}
+    },
+    {
+      "filename": "what_is_dragonfly.md",
+      "link": "\\zh-cn\\docs\\overview\\what_is_dragonfly.html",
+      "meta": {}
+    },
+    {
+      "filename": "quickstart.md",
+      "link": "\\zh-cn\\docs\\quickstart.html",
+      "meta": {}
+    },
+    {
+      "filename": "download_files.md",
+      "link": "\\zh-cn\\docs\\userguide\\download_files.html",
+      "meta": {}
+    },
+    {
+      "filename": "install_client.md",
+      "link": "\\zh-cn\\docs\\userguide\\install_client.html",
+      "meta": {}
+    },
+    {
+      "filename": "install_server.md",
+      "link": "\\zh-cn\\docs\\userguide\\install_server.html",
+      "meta": {}
+    },
+    {
+      "filename": "supernode_configuration.md",
+      "link": "\\zh-cn\\docs\\userguide\\supernode_configuration.html",
       "meta": {}
     }
   ]
