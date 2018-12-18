@@ -159,7 +159,6 @@ export default {
         '/img/adopters/lazada.png',
         '/img/adopters/meituan.png',
         '/img/adopters/qunar.png',
-        '/img/adopters/yahoo.png',
       ],
     },
   },
