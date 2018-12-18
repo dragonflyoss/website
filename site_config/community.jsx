@@ -5,7 +5,7 @@ export default {
     barText: 'Community',
     contacts: {
       title: 'Talk To Us',
-      desc: 'Feel free to contact us via the following channel.',
+      desc: 'Feel free to contact us via the following channels.',
       list: [
         {
           img: '/img/mailinglist.png',
@@ -17,7 +17,7 @@ export default {
           img: '/img/alibaba.png',
           imgHover: '/img/alibaba_hover.png',
           title: 'gitter',
-          link: '',
+          link: 'https://gitter.im/alibaba/Dragonfly',
         },
         {
           img: '/img/segmentfault.png',
