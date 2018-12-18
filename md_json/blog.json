@@ -2,7 +2,7 @@
   "en-us": [
     {
       "filename": "blog1.md",
-      "link": "/en-us/blog/blog1.html",
+      "link": "\\en-us\\blog\\blog1.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -14,7 +14,7 @@
     },
     {
       "filename": "blog2.md",
-      "link": "/en-us/blog/blog2.html",
+      "link": "\\en-us\\blog\\blog2.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -26,7 +26,7 @@
     },
     {
       "filename": "blog3.md",
-      "link": "/en-us/blog/blog3.html",
+      "link": "\\en-us\\blog\\blog3.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -38,7 +38,7 @@
     },
     {
       "filename": "blog4.md",
-      "link": "/en-us/blog/blog4.html",
+      "link": "\\en-us\\blog\\blog4.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -50,7 +50,7 @@
     },
     {
       "filename": "blog5.md",
-      "link": "/en-us/blog/blog5.html",
+      "link": "\\en-us\\blog\\blog5.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -62,7 +62,7 @@
     },
     {
       "filename": "blog6.md",
-      "link": "/en-us/blog/blog6.html",
+      "link": "\\en-us\\blog\\blog6.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -74,7 +74,7 @@
     },
     {
       "filename": "blog7.md",
-      "link": "/en-us/blog/blog7.html",
+      "link": "\\en-us\\blog\\blog7.html",
       "meta": {
         "hidden": "false",
         "title": "title",
@@ -86,7 +86,7 @@
     },
     {
       "filename": "download.md",
-      "link": "/en-us/blog/download.html",
+      "link": "\\en-us\\blog\\download.html",
       "meta": {
         "title": "download",
         "keywords": "download",
@@ -97,7 +97,7 @@
   "zh-cn": [
     {
       "filename": "blog1.md",
-      "link": "/zh-cn/blog/blog1.html",
+      "link": "\\zh-cn\\blog\\blog1.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -109,7 +109,7 @@
     },
     {
       "filename": "blog2.md",
-      "link": "/zh-cn/blog/blog2.html",
+      "link": "\\zh-cn\\blog\\blog2.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -121,7 +121,7 @@
     },
     {
       "filename": "blog3.md",
-      "link": "/zh-cn/blog/blog3.html",
+      "link": "\\zh-cn\\blog\\blog3.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -133,7 +133,7 @@
     },
     {
       "filename": "blog4.md",
-      "link": "/zh-cn/blog/blog4.html",
+      "link": "\\zh-cn\\blog\\blog4.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -145,7 +145,7 @@
     },
     {
       "filename": "blog5.md",
-      "link": "/zh-cn/blog/blog5.html",
+      "link": "\\zh-cn\\blog\\blog5.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -157,7 +157,7 @@
     },
     {
       "filename": "blog6.md",
-      "link": "/zh-cn/blog/blog6.html",
+      "link": "\\zh-cn\\blog\\blog6.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -169,7 +169,7 @@
     },
     {
       "filename": "blog7.md",
-      "link": "/zh-cn/blog/blog7.html",
+      "link": "\\zh-cn\\blog\\blog7.html",
       "meta": {
         "hidden": "false",
         "title": "文章标题",
@@ -181,7 +181,7 @@
     },
     {
       "filename": "download.md",
-      "link": "/zh-cn/blog/download.html",
+      "link": "\\zh-cn\\blog\\download.html",
       "meta": {
         "title": "下载页",
         "keywords": "下载页",

@@ -1,6 +1,6 @@
-// 全局的一些配置
+﻿// 全局的一些配置
 export default {
-  rootPath: '/product', // 发布到服务器的根目录，需以/开头但不能有尾/，如果只有/，请填写空字符串
+  rootPath: '', // 发布到服务器的根目录，需以/开头但不能有尾/，如果只有/，请填写空字符串
   port: 8080, // 本地开发服务器的启动端口
   // domain: 'dubbo.apache.org', // 站点部署域名，无需协议和path等
   // defaultSearch: 'google', // 默认搜索引擎，baidu或者google
@@ -15,7 +15,7 @@ export default {
       {
         key: 'docs',
         text: 'DOCS',
-        link: '/en-us/docs/demo1.html',
+        link:'/en-us/docs/overview/what_is_dragonfly.html',
       },
       {
         key: 'developers',
@@ -40,22 +40,30 @@ export default {
     ],
     vision: {
       title: 'Vision',
-      content: 'Dragonfly 致力于解决大规模文件分发的效率问题，打造容器镜像分发的第一解决方案和标准规范；为用户提供高可用、高效率以及简单易用的文件及镜像分发服务。',
+      content: 'Dragonfly is dedicated to improving the efficiency of large-scale file distribution, building the go-to solution and standards of container image distribution, and providing you with file and image distribution service which is efficient, easy-to-use, and of high availability.',
     },
     documentation: {
       title: 'Documentation',
       list: [
         {
-          text: 'Overview',
-          link: '/en-us/docs/demo1.html',
+          text: 'What is Dragonfly?',
+          link: '/en-us/docs/overview/what_is_dragonfly.html',
         },
         {
-          text: 'Quick start',
-          link: '/en-us/docs/demo2.html',
+          text: 'Quick Start',
+          link: '/en-us/docs/quickstart.html',
         },
         {
-          text: 'Developer guide',
-          link: '/en-us/docs/dir/demo3.html',
+          text: 'Installing Server',
+          link: '/en-us/docs/userguide/install_server.html',
+        },
+        {
+          text: 'Installing Client',
+          link: '/en-us/docs/userguide/install_client.html',
+        },
+        {
+          text: 'Downloading Files',
+          link: '/en-us/docs/userguide/download_files.html',
         },
       ],
     },
@@ -84,7 +92,7 @@ export default {
       {
         key: 'docs',
         text: '文档',
-        link: '/zh-cn/docs/demo1.html',
+        link: '/zh-cn/docs/overview/what_is_dragonfly.html',
       },
       {
         key: 'developers',
@@ -109,22 +117,30 @@ export default {
     ],
     vision: {
       title: '愿景',
-      content: 'Dragonfly 致力于解决大规模文件分发的效率问题，打造容器镜像分发的第一解决方案和标准规范；为用户提供高可用、高效率以及简单易用的文件及镜像分发服务。',
+      content: 'Dragonfly 致力于解决大规模文件分发的效率问题，打造容器镜像分发的第一解决方案和标准规范，并为用户提供高可用、高效率以及简单易用的文件及镜像分发服务。',
     },
     documentation: {
       title: '文档',
       list: [
         {
-          text: '概览',
-          link: '/zh-cn/docs/demo1.html',
+          text: '什么是 Dragonfly？',
+          link: '/zh-cn/docs/overview/what_is_dragonfly.html',
         },
         {
           text: '快速开始',
-          link: '/zh-cn/docs/demo2.html',
+          link: '/zh-cn/docs/quickstart.html',
         },
         {
-          text: '开发者指南',
-          link: '/zh-cn/docs/dir/demo3.html',
+          text: '安装服务端',
+          link: '/en-us/docs/userguide/install_server.html',
+        },
+        {
+          text: '安装客户端',
+          link: '/en-us/docs/userguide/install_client.html',
+        },
+        {
+          text: '下载文件',
+          link: '/en-us/docs/userguide/download_files.html',
         },
       ],
     },
