@@ -2,16 +2,16 @@ export default {
   'zh-cn': {
     brand: {
       brandName: 'Dragonfly',
-      briefIntroduction: 'A lightweight flow-control library providing high-available protection and monitoring',
+      briefIntroduction: '一个开源的基于P2P镜像及文件分发系统',
       buttons: [
         {
           text: '开始',
-          link: '/zh-cn/docs/demo1.html',
+          link: '/zh-cn/docs/quickstart.html',
           type: 'primary',
         },
         {
           text: 'GITHUB',
-          link: '',
+          link: 'https://github.com/dragonflyoss/Dragonfly',
           type: 'normal',
         },
       ],
@@ -84,16 +84,16 @@ export default {
   'en-us': {
     brand: {
       brandName: 'Dragonfly',
-      briefIntroduction: 'A lightweight flow-control library providing high-available protection and monitoring',
+      briefIntroduction: 'An Open Source P2P-based Image and File Distribution System',
       buttons: [
         {
           text: 'GET STARTED',
-          link: '/en-us/docs/demo1.html',
+          link: '/en-us/docs/quickstart.html',
           type: 'primary',
         },
         {
           text: 'GITHUB',
-          link: '',
+          link: 'https://github.com/dragonflyoss/Dragonfly',
           type: 'normal',
         },
       ],
@@ -159,7 +159,6 @@ export default {
         '/img/adopters/lazada.png',
         '/img/adopters/meituan.png',
         '/img/adopters/qunar.png',
-        '/img/adopters/yahoo.png',
       ],
     },
   },
