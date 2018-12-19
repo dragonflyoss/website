@@ -1,0 +1,19 @@
+box: node
+build:
+  steps:
+    - npm-install
+    - npm-test
+    - script:
+      name: echo nodejs information
+      code: |
+        echo "node version $(node -v) running"
+        echo "npm version $(npm -v) running"
+
+# deploy:
+#   steps:
+#     - install-packages:
+#         packages: git ssh-client
+#     - lukevivier/gh-pages@0.2.1:
+#         token: $GIT_TOKEN
+#         domain: $GITPAGES_DOMAIN
+#         basedir: docs/.build/public
