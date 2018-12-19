@@ -1,6 +1,6 @@
 # Installing Dragonfly Client
 
-You have two options when installing the Dragonfly client: installing from the latest package, or installing from the source code.
+You have three options when installing the Dragonfly client: installing from the latest package, installing by pulling the image, or installing from the source code.
 
 ## Installing from the Latest Package
 
@@ -41,6 +41,42 @@ You can install from the latest packages we provided.
     # Replace `xxx` with the installation directory.
     # Execute or add this line to ~/.bashrc
     export PATH=$PATH:xxx/df-client/
+    ```
+
+## Installing by Pulling the Image
+
+1. Pull the docker image we provided.
+
+    ```bash
+    docker pull dragonflyoss/dfclient:v0.3.0_dev
+    ```
+
+2. Start dfdaemon.
+
+    ```bash
+    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0_dev --registry https://xxx.xx.x
+    ```
+
+3. Configure the Daemon Mirror.
+
+    a. Modify the configuration file `/etc/docker/daemon.json`.
+
+    ```sh
+    vi /etc/docker/daemon.json
+    ```
+
+    **Tip:** For more information on `/etc/docker/daemon.json`, see [Docker documentation](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache).
+
+    b. Add or update the configuration item `registry-mirrors` in the configuration file.
+
+    ```sh
+    "registry-mirrors": ["http://127.0.0.1:65001"]
+    ```
+
+    c. Restart Docker daemon.
+
+    ```bash
+    systemctl restart docker
     ```
 
 ## Installing from the Source Code
@@ -108,6 +144,6 @@ You can also install from the source code.
 
 Test if the downloading works.
 
-    ```sh
-    dfget --url "http://${resourceUrl}" --output ./resource.png --node "127.0.0.1"
-    ```
+```sh
+dfget --url "http://${resourceUrl}" --output ./resource.png --node "127.0.0.1"
+```
