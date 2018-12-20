@@ -2,7 +2,7 @@
   "en-us": [
     {
       "filename": "example.md",
-      "link": "/en-us/blog/example.html",
+      "link": "\\en-us\\blog\\example.html",
       "meta": {
         "hidden": "true",
         "title": "title",
@@ -16,7 +16,7 @@
   "zh-cn": [
     {
       "filename": "china-mobile-practice.md",
-      "link": "/zh-cn/blog/china-mobile-practice.html",
+      "link": "\\zh-cn\\blog\\china-mobile-practice.html",
       "meta": {
         "hidden": "false",
         "title": "浙江移动容器云基于 Dragonfly 的统一文件分发平台生产实践",
@@ -28,7 +28,7 @@
     },
     {
       "filename": "example.md",
-      "link": "/zh-cn/blog/example.html",
+      "link": "\\zh-cn\\blog\\example.html",
       "meta": {
         "hidden": "true",
         "title": "文章标题",
