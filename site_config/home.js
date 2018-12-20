@@ -17,7 +17,7 @@ export default {
       ],
     },
     introduction: {
-      title: '基于 P2P 的大规模镜像及文件分发',
+      title: '什么是 Dragonfly？',
       desc: '随着企业数字化大潮席卷全球，行业应用纷纷向微服务架构演进，并通过云化平台优化业务管理。由阿里巴巴开源的云原生镜像分发系统 Dragonfly，面向以 Kubernetes 为核心的分布式应用编排系统，前瞻性地解决了云原生镜像分发的下列三大难题：',
       list: [
         '效率：借助 P2P 与 CDN 技术，缩减镜像传输时间，提升分发效率，加速业务应用交付；',
@@ -99,7 +99,7 @@ export default {
       ],
     },
     introduction: {
-      title: 'P2P-based Image & File Distribution',
+      title: 'What is Dragonfly?',
       desc: 'In the era of digital transformation, businesses are migrating to micro-service frameworks, and streamlining business management with cloud platforms. Dragonfly, an open-source project from Alibaba Group, with distributed orchestration systems based on Kubernetes in mind, proactively solves the following problems in cloud native image distribution:',
       list: [
         'Efficiency: with P2P and CDN technology, reduce image distribution time significantly and expedite delivery;',
