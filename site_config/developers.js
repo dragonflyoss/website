@@ -2,11 +2,11 @@ export default {
   'en-us': {
     sidemenu: [
       {
-        title: 'developer',
+        title: 'Developer Guide',
         children: [
           {
-            title: 'developer1',
-            link: '/en-us/docs/developers/developer1.html',
+            title: 'Maintainers',
+            link: '/en-us/docs/developers/maintainers.html',
           }
         ],
       }
@@ -16,11 +16,11 @@ export default {
   'zh-cn': {
     sidemenu: [
       {
-        title: '开发者',
+        title: '开发者指南',
         children: [
           {
-            title: '开发者1',
-            link: '/zh-cn/docs/developers/developer1.html',
+            title: '维护者',
+            link: '/zh-cn/docs/developers/maintainers.html',
           }
         ],
       }
