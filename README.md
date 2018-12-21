@@ -10,8 +10,7 @@ All website material  of Dragonfly
 + git下载整个工程文件
 + 进入工程目录，执行 `npm i`执行依赖安装
 + 执行`docsite start`进行本地验证查看
-+ 执行`docsite build`进行本地代码构建
-+ 提交代码推送至仓库
++ 提交代码并创建pull request
 
 ### 文档编写及放置
 
