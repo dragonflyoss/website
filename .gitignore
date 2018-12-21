@@ -3,3 +3,11 @@ node_modules/
 .DS_Store
 npm-debug.log
 *.orig
+*.swo
+*.swp
+
+# generated codes by docsite build
+/en-us
+/zh-cn
+/build
+/md_json
