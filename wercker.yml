@@ -10,6 +10,8 @@ build:
         npm i docsite
         npm i
         node_modules/docsite/bin/docsite.js build
+        echo 'node_modules/' > .gitignore
+        echo 'npm-debug.log' >> .gitignore
 
 deploy:
   steps:
