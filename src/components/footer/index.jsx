@@ -44,7 +44,7 @@ class Footer extends React.Component {
             </dl>
             </div>
           </div>
-          <div className="copyright"><span>{dataSource.copyright}</span></div>
+          <div className="copyright"><span>{dataSource.copyright} | <a href="https://www.cnzz.com/stat/website.php?web_id=1275746144" target="_blank"><img border="0" hspace="0" vspace="0" src="https://icon.cnzz.com/img/pic.gif"/></a></span></div>
         </div>
       </footer>
     );
