@@ -2,7 +2,7 @@ export default {
   'en-us': {
     sidemenu: [
       {
-        title: 'Dragonfly',
+        title: 'User Docs',
         children: [
           {
             title: 'Overview',
@@ -69,7 +69,7 @@ export default {
         ],
       },
     ],
-    barText: 'User Manual',
+    barText: 'Documentation',
   },
   'zh-cn': {
     sidemenu: [
@@ -141,6 +141,6 @@ export default {
         ],
       },
     ],
-    barText: '用户手册',
+    barText: '文档',
   },
 };
