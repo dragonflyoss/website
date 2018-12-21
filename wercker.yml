@@ -2,18 +2,20 @@ box: node
 build:
   steps:
     - npm-install
-    - npm-test
     - script:
-      name: echo nodejs information
+      name: docsite build
       code: |
         echo "node version $(node -v) running"
         echo "npm version $(npm -v) running"
+        npm i docsite
+        npm i
+        node_modules/docsite/bin/docsite.js build
 
-# deploy:
-#   steps:
-#     - install-packages:
-#         packages: git ssh-client
-#     - lukevivier/gh-pages@0.2.1:
-#         token: $GIT_TOKEN
-#         domain: $GITPAGES_DOMAIN
-#         basedir: docs/.build/public
+deploy:
+  steps:
+    - install-packages:
+        packages: git ssh-client
+    - lukevivier/gh-pages@0.2.1:
+        token: $GIT_TOKEN
+        domain: $GITPAGES_DOMAIN
+        basedir: ./
