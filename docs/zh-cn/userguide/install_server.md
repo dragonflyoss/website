@@ -2,11 +2,11 @@
 
 This topic explains how to install the Dragonfly server.
 
-**Tip:** For a data center or a cluster, we recommend that you use at least two machines with eight cores, 16GB RAM and Gigabit Ethernet connections for deploying supernodes.
+**Tip:** For a data center or a cluster, we recommend that you use at least two machines with eight cores, 16GB RAM and Gigabit Ethernet connections for deploying SuperNodes.
 
 ## Context
 
-There are two layers in Dragonfly’s architecture: server (supernodes) and client (hosts). Install the supernodes in one of the following ways:
+There are two layers in Dragonfly’s architecture: server (SuperNodes) and client (hosts). Install the SuperNodes in one of the following ways:
 
 - Deploying with Docker: Recommended for quick local deployment and test.
 - Deploying with physical machines: Recommended for production usage.
@@ -46,7 +46,7 @@ Nginx|0.8+
 3. Build the Docker image.
 
     ```sh
-    ./build/build.sh supernode
+    make build-supernode
     ```
 
 4. Obtain the latest Docker image ID of the SuperNode.
@@ -104,7 +104,7 @@ Nginx|0.8+
 
     server {
     listen 8002;
-    location /peer {
+    location / {
       proxy_pass http://127.0.0.1:8080;
      }
     }
