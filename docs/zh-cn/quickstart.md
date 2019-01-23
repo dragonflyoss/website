@@ -1,33 +1,33 @@
-# Dragonfly Quick Start
+# Dragonfly 快速入门
 
-In this quick start guide, you will get a feeling of Dragonfly by starting a [SuperNode](overview/terminology.md) (the server) in your Docker container, installing the Dragonfly client (the client), and then downloading a container image and a general file, which are likely what you'll be doing frequently in your use case.
+在本快速入门文档中，为了让您快速上手 Dragonfly，您首先要在 Docker 容器中启动一个 [SuperNode](overview/terminology.md)（服务端），并安装 Dragonfly 客户端，然后下载一个容器镜像或普通文件，这些下载工作可能是实际场景中经常要做的。
 
-## Prerequisites
+## 前提条件
 
-You have started your Docker container.
+Docker 容器已启动。
 
-## Step 1: Starting a SuperNode (the Server) in Your Docker Container
+## 步骤 1：在 Docker 容器中启动 SuperNode（服务端）
 
-1. Pull the docker image we provided.
+1. 拉取我们提供的 Docker 镜像。
 
     ```bash
-    # Replace ${imageName} with the real image name
+    # 将 ${imageName} 替换为真实镜像名称
     docker pull ${imageName}
     ```
 
-    **Note:** Choose one of the images we provide according to your geo-location, and replace `${imageName}` with it:
+    **注意：** 请根据您所处的地理位置选择我们提供的一个镜像，并用其替换 `${imageName}`：
 
-    - China: `registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0`
-    - US: `registry.us-west-1.aliyuncs.com/alidragonfly/supernode:0.2.0`
+    - 中国：`registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0`
+    - 美国：`registry.us-west-1.aliyuncs.com/alidragonfly/supernode:0.2.0`
 
-2. Start a SuperNode.
+2. 启动 SuperNode。
 
     ```bash
-    # Replace ${imageName} with the real image name
+    # 将 ${imageName} 替换为真实镜像名称
     docker run -d -p 8001:8001 -p 8002:8002 ${imageName}
     ```
 
-For example, if you're in China, run the following commands:
+例如，如果您在中国，则运行以下命令：
 
 ```bash
 docker pull registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0
@@ -35,138 +35,138 @@ docker pull registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0
 docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0
 ```
 
-## Step 2: Installing Dragonfly Client
+## 步骤 2：安装 Dragonfly 客户端
 
-You have two options of installing Dragonfly client: installing from source code, or installing by pulling the image.
+有两种方法可以安装 Dragonfly 客户端：从源码安装，或者通过拉取镜像来安装。
 
-### Option 1: Installing from Source Code
+### 方法 1：从源码安装
 
-1. Download a package of the client.
+1. 下载客户端的包。
 
     ```bash
     cd $HOME
-    # Replace ${package} with a package appropriate for your operating system and location
+    # 将 ${package} 替换为适合您的操作系统和位置的包
     wget ${package}
     ```
 
-    **Note:** Choose one of the packages we provide according to your geo-location, and replace `${package}` with it:
+    **注意：** 请根据您所处的地理位置选择我们提供的一个包，并用其替换 `${package}`：
 
-    - If you're in China:
+    - 如果您在中国：
 
         - [Linux 64-bit](http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz): `http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz`
 
         - [MacOS 64-bit](http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_darwin_amd64.tar.gz): `http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_darwin_amd64.tar.gz`
 
-    - If you're not in China:
+    - 如果您不在中国：
 
         - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_linux_amd64.tar.gz`
 
         - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_darwin_amd64.tar.gz`
 
-2. Unzip the package.
+2. 将包解压。
 
     ```bash
-    # Replace ${package} with a package appropriate for your operating system and location
+    # 将 ${package} 替换为适合您的操作系统和位置的包
     tar -zxf ${package}
     ```
 
-3. Add the directory of `df-client` to your `PATH` environment variable to make sure you can directly use `dfget` and `dfdaemon` command.
+3. 将 `df-client` 目录添加到 `PATH` 环境变量，以便直接使用 `dfget` 和 `dfdaemon` 命令。
 
     ```bash
-    # Execute or add this line to ~/.bashrc
+    # 执行或将这一行添加到 ~/.bashrc
     export PATH=$PATH:$HOME/df-client/
     ```
 
-For example, if you're in China and using Linux, run the following commands:
+例如，如果您在中国且使用 Linux，则运行以下命令：
 
 ```bash
 cd $HOME
 wget http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz
 tar -zxf df-client_0.2.0_linux_amd64.tar.gz
-# execute or add this line to ~/.bashrc
+# 执行或将这一行添加到 ~/.bashrc
 export PATH=$PATH:$HOME/df-client/
 ```
 
-### Option 2: Installing by Pulling the Image
+### 方法 2：通过拉取镜像来安装
 
-1. Pull the docker image we provided.
+1. 拉取我们提供的 Docker 镜像。
 
     ```bash
     docker pull dragonflyoss/dfclient:v0.3.0_dev
     ```
 
-2. Start dfdaemon.
+2. 启动 dfdaemon。
 
     ```bash
     docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0_dev --registry https://xxx.xx.x
     ```
 
-3. Configure the Daemon Mirror.
+3. 配置 Daemon 镜像。
 
-    a. Modify the configuration file `/etc/docker/daemon.json`.
+    a.修改配置文件 `/etc/docker/daemon.json`。
 
     ```sh
     vi /etc/docker/daemon.json
     ```
 
-    **Tip:** For more information on `/etc/docker/daemon.json`, see [Docker documentation](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache).
+    **提示：** 如需进一步了解 `/etc/docker/daemon.json`，请参考 [Docker 文档](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache)。
 
-    b. Add or update the configuration item `registry-mirrors` in the configuration file.
+    b.在配置文件中添加或更新配置项 `registry-mirrors`。
 
     ```sh
     "registry-mirrors": ["http://127.0.0.1:65001"]
     ```
 
-    c. Restart Docker daemon.
+    c.重启 Docker Daemon。
 
     ```bash
     systemctl restart docker
     ```
 
-## Step 3: Downloading Images or Files
+## 步骤 3：下载镜像或文件
 
-Now that you have started your SuperNode, and installed Dragonfly client, you can start downloading images or general files, both of which are supported by Dragonfly, but with slightly different downloading methods.
+现在已经启动 SuperNode 并安装 Dragonfly 客户端，所以可以开始下载镜像或普通文件了。Dragonfly 支持下载这两类文件，但下载方法略有不同。
 
-### Use Case 1: Downloading a General File with Dragonfly
+### 场景 1：用 Dragonfly 下载普通文件
 
-Once you have installed the Dragonfly client, you can use the `dfget` command to download a file.
+安装 Dragonfly 客户端后，即可使用 `dfget` 命令下载文件。
 
 ```bash
 dfget -u 'https://github.com/dragonflyoss/Dragonfly/blob/master/docs/images/logo.png' -o /tmp/logo.png
 ```
 
-**Tip:** For more information on the dfget command, see [dfget](cli_ref/dfget.md).
+**提示：**如需进一步了解 dfget 命令，请参考 [dfget](cli_ref/dfget.md)。
 
-### Use Case 2: Pulling an Image with Dragonfly
+### 场景 2：用 Dragonfly 拉取镜像
 
-1. Start `dfdaemon` with a specified registry, such as `https://index.docker.io`.
+1. 以指定的 Registry 启动 `dfdaemon`，例如 `https://index.docker.io`。
 
     ```bash
     nohup dfdaemon --registry https://index.docker.io > /dev/null 2>&1 &
     ```
 
-2. Add the following line to the dockerd configuration file [/etc/docker/daemon.json](https://docs.docker.com/registry/recipes/mirror/#configure-the-docker-daemon).
+2. 将以下这一行添加到 Dockerd 配置文件 [/etc/docker/daemon.json](https://docs.docker.com/registry/recipes/mirror/#configure-the-docker-daemon)。
 
     ```json
     "registry-mirrors": ["http://127.0.0.1:65001"]
     ```
 
-3. Restart dockerd.
+3. 重启 Dockerd。
 
     ```bash
     systemctl restart docker
     ```
 
-4. Download an image with Dragonfly.
+4. 用 Dragonfly 拉取镜像。
 
     ```bash
     docker pull nginx:latest
     ```
 
-## Related Topics
+## 相关文档
 
-- [Installing Server](userguide/install_server.md)
-- [Installing Client](userguide/install_client.md)
-- [Downloading Files](userguide/download_files.md)
-- [SuperNode Configuration](userguide/supernode_configuration.md)
+- [安装服务端](userguide/install_server.md)
+- [安装客户端](userguide/install_client.md)
+- [下载文件](userguide/download_files.md)
+- [SuperNode 配置](userguide/supernode_configuration.md)
 - [Dfget](cli_ref/dfget.md)
