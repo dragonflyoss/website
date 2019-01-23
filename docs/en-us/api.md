@@ -1,6 +1,6 @@
 # APIs Provided by SuperNode
 
-This topic explains how to use the APIs provided by the [SuperNode](overview/terminology.md) (the cluster manager).
+This topic explains how to use the APIs provided by the [SuperNode](overview/terminology.md).
 
 ## Registration
 

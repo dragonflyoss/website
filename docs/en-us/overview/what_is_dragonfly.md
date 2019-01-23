@@ -22,9 +22,9 @@ This project is an open-source version of the Dragonfly used at Alibaba. It has 
 - **Passive CDN**: The CDN mechanism can avoid repetitive remote downloads.
 - **Strong consistency**: Dragonfly can make sure that all downloaded files are consistent even if users do not provide any check code (MD5).
 - **Disk protection and highly efficient IO**: Prechecking disk space, delaying synchronization, writing file blocks in the best order, isolating net-read/disk-write, and so on.
-- **High performance**: Cluster Manager is completely closed-loop, which means that it doesn't rely on any database or distributed cache, processing requests with extremely high performance.
-- **Auto-isolation of Exception**: Dragonfly will automatically isolate exception nodes (peer or Cluster Manager) to improve download stability.
-- **No pressure on file source**: Generally, only a few Cluster Managers will download files from the source.
+- **High performance**: SuperNode is completely closed-loop, which means that it doesn't rely on any database or distributed cache, processing requests with extremely high performance.
+- **Auto-isolation of Exception**: Dragonfly will automatically isolate exception nodes (peer or SuperNode) to improve download stability.
+- **No pressure on file source**: Generally, only a few SuperNodes will download files from the source.
 - **Support standard HTTP header**: Support submitting authentication information through HTTP header.
 - **Effective concurrency control of Registry Auth**: Reduce the pressure on the Registry Auth Service.
 - **Simple and easy to use**: Very few configurations are needed.
@@ -53,7 +53,7 @@ Dragonfly works slightly differently when downloading general files and download
 
 ### Downloading General Files
 
-The Cluster Manager is also called a SuperNode, which is responsible for CDN and scheduling every peer to transfer blocks between each other. dfget is the P2P client, which is also called "peer". It's mainly used to download and share blocks.
+The SuperNode plays the role of CDN and schedules the transfer of blocks between each peer. dfget is the P2P client, which is also called a "peer". It's mainly used to download and share blocks.
 
 ![Downloading General Files](../img/dfget.png)
 
@@ -65,6 +65,6 @@ Registry is similar to the file server above. dfget proxy is also called dfdaemo
 
 ### Downloading Blocks
 
-Every file is divided into multiple blocks, which are transmitted between peers. Each peer is a P2P client. Cluster Manager will check if the corresponding file exists in the local disk. If not, it will be downloaded into Cluster Manager from file server.
+Every file is divided into multiple blocks, which are transferred between peers. Each peer is a P2P client. The SuperNode will check if the corresponding file exists in the local disk. If not, the file will be downloaded into SuperNode from the file server.
 
 ![How file blocks are downloaded](../img/distributing.png)
