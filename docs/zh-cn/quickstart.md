@@ -17,8 +17,8 @@ Docker 容器已启动。
 
     **注意：** 请根据您所处的地理位置选择我们提供的一个镜像，并用其替换 `${imageName}`：
 
-    - 中国：`registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0`
-    - 美国：`registry.us-west-1.aliyuncs.com/alidragonfly/supernode:0.2.0`
+    - 中国：`registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1`
+    - 美国：`registry.us-west-1.aliyuncs.com/dragonflyoss/supernode:0.2.1`
 
 2. 启动 SuperNode。
 
@@ -30,9 +30,9 @@ Docker 容器已启动。
 例如，如果您在中国，则运行以下命令：
 
 ```bash
-docker pull registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0
+docker pull registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1
 
-docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/alidragonfly/supernode:0.2.0
+docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1
 ```
 
 ## 步骤 2：安装 Dragonfly 客户端
@@ -53,15 +53,15 @@ docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/alidra
 
     - 如果您在中国：
 
-        - [Linux 64-bit](http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz): `http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz`
+        - [Linux 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz`
 
-        - [MacOS 64-bit](http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_darwin_amd64.tar.gz): `http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_darwin_amd64.tar.gz`
+        - [MacOS 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz`
 
     - 如果您不在中国：
 
-        - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_linux_amd64.tar.gz`
+        - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz`
 
-        - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.0/df-client_0.2.0_darwin_amd64.tar.gz`
+        - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz`
 
 2. 将包解压。
 
@@ -81,8 +81,8 @@ docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/alidra
 
 ```bash
 cd $HOME
-wget http://dragonfly-os.oss-cn-beijing.aliyuncs.com/df-client_0.2.0_linux_amd64.tar.gz
-tar -zxf df-client_0.2.0_linux_amd64.tar.gz
+wget http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz
+tar -zxf df-client_0.2.1_linux_amd64.tar.gz
 # 执行或将这一行添加到 ~/.bashrc
 export PATH=$PATH:$HOME/df-client/
 ```
