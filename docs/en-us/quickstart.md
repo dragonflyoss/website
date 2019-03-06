@@ -53,15 +53,15 @@ You have two options of installing Dragonfly client: installing from source code
 
     - If you're in China:
 
-        - [Linux 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz`
+        - [Linux 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.3.0_linux_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.3.0_linux_amd64.tar.gz`
 
-        - [MacOS 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz`
+        - [MacOS 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.3.0_darwin_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.3.0_darwin_amd64.tar.gz`
 
     - If you're not in China:
 
-        - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz`
+        - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.3.0/df-client_0.3.0_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.3.0/df-client_0.3.0_linux_amd64.tar.gz`
 
-        - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz`
+        - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.3.0/df-client_0.3.0_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.3.0/df-client_0.3.0_darwin_amd64.tar.gz`
 
 2. Unzip the package.
 
@@ -81,8 +81,8 @@ For example, if you're in China and using Linux, run the following commands:
 
 ```bash
 cd $HOME
-wget http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz
-tar -zxf df-client_0.2.1_linux_amd64.tar.gz
+wget http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.3.0_linux_amd64.tar.gz
+tar -zxf df-client_0.3.0_linux_amd64.tar.gz
 # execute or add this line to ~/.bashrc
 export PATH=$PATH:$HOME/df-client/
 ```
@@ -92,13 +92,13 @@ export PATH=$PATH:$HOME/df-client/
 1. Pull the docker image we provided.
 
     ```bash
-    docker pull dragonflyoss/dfclient:v0.3.0_dev
+    docker pull dragonflyoss/dfclient:v0.3.0
     ```
 
 2. Start dfdaemon.
 
     ```bash
-    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0_dev --registry https://xxx.xx.x
+    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://xxx.xx.x
     ```
 
 3. Configure the Daemon Mirror.

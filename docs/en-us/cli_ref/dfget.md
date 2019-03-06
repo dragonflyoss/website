@@ -13,41 +13,29 @@ dfget - the client of Dragonfly, a non-interactive P2P downloader.
 ## Options
 
 ```
-  -h, --help            show this help message and exit
-  --url URL, -u URL     will download a file from this url
-  --output OUTPUT, -O OUTPUT, -o OUTPUT
-                        output path that not only contains the dir part but
-                        also name part
-  --md5 MD5, -m MD5     expected file md5
-  --callsystem CALLSYSTEM
-                        system name that executes dfget,its format is
-                        company_department_appName
-  --notbs               not back source when p2p fail
-  --locallimit LOCALLIMIT, -s LOCALLIMIT
-                        rate limit about a single download task,its format is
-                        20M/m/K/k
-  --totallimit TOTALLIMIT
-                        rate limit about the whole host,its format is
-                        20M/m/K/k
-  --identifier IDENTIFIER, -i IDENTIFIER
-                        identify download task,it is available merely when md5
-                        param not exist
-  --timeout TIMEOUT, --exceed TIMEOUT, -e TIMEOUT
-                        download timeout(second)
-  --filter FILTER, -f FILTER
-                        filter some query params of url ,e.g. -f 'key&sign'
-                        will filter key and sign query param.in this
-                        way,different urls correspond one same download task
-                        that can use p2p mode
-  --showbar, -b         show progress bar
-  --pattern {p2p,cdn}, -p {p2p,cdn}
-                        download pattern,cdn pattern not support totallimit
-  --version, -v         version
-  --node NODE, -n NODE  specify nodes
-  --console             show log on console
-  --header HEADER       http header, e.g. --header="Accept: *" --header="Host:
-                        abc"
-  --dfdaemon            caller is from df-daemon
+      --alivetime duration    Alive duration for which uploader keeps no accessing by any uploading requests, after this period uploader will automically exit (default 5m0s)
+      --callsystem string     The name of dfget caller which is for debugging. Once set, it will be passed to all components around the request to make debugging easy
+      --clientqueue int       specify the size of client queue which controls the number of pieces that can be processed simultaneously (default 6)
+      --console               show log on console, it's conflict with '--showbar'
+      --dfdaemon              identify whether the request is from dfdaemon
+      --expiretime duration   caching duration for which cached file keeps no accessed by any process, after this period cache file will be deleted (default 3m0s)
+  -f, --filter string         filter some query params of URL, use char '&' to separate different params
+                              eg: -f 'key&sign' will filter 'key' and 'sign' query param
+                              in this way, different but actually the same URLs can reuse the same downloading task
+      --header strings        http header, eg: --header='Accept: *' --header='Host: abc'
+  -h, --help                  help for dfget
+  -i, --identifier string     The usage of identifier is making different downloading tasks generate different downloading task IDs even if they have the same URLs. conflict with --md5.
+  -s, --locallimit string     network bandwidth rate limit for single download task, in format of 20M/m/K/k
+  -m, --md5 string            md5 value input from user for the requested downloading file to enhance security
+  -n, --node strings          specify the addresses(IP:port) of supnernodes
+      --notbs                 disable back source downloading for requested file when p2p fails to download it
+  -o, --output string         Destination path which is used to store the requested downloading file. It must contain detailed directory and specific filename, for example, '/tmp/file.mp4'
+  -p, --pattern string        download pattern, must be p2p/cdn/source, cdn and source do not support flag --totallimit (default "p2p")
+  -b, --showbar               show progress bar, it is conflict with '--console'
+  -e, --timeout int           Timeout set for file downloading task. If dfget has not finished downloading all pieces of file before --timeout, the dfget will throw an error and exit
+      --totallimit string     network bandwidth rate limit for the whole host, in format of 20M/m/K/k
+  -u, --url string            URL of user requested downloading file(only HTTP/HTTPs supported)
+      --verbose               be verbose
 ```
 
 ## Files
