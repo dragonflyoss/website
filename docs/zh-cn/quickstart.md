@@ -92,13 +92,13 @@ export PATH=$PATH:$HOME/df-client/
 1. 拉取我们提供的 Docker 镜像。
 
     ```bash
-    docker pull dragonflyoss/dfclient:v0.3.0_dev
+    docker pull dragonflyoss/dfclient:v0.3.0
     ```
 
 2. 启动 dfdaemon。
 
     ```bash
-    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0_dev --registry https://xxx.xx.x
+    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://xxx.xx.x
     ```
 
 3. 配置 Daemon 镜像。

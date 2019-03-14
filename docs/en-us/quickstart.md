@@ -92,13 +92,13 @@ export PATH=$PATH:$HOME/df-client/
 1. Pull the docker image we provided.
 
     ```bash
-    docker pull dragonflyoss/dfclient:v0.3.0_dev
+    docker pull dragonflyoss/dfclient:v0.3.0
     ```
 
 2. Start dfdaemon.
 
     ```bash
-    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0_dev --registry https://xxx.xx.x
+    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://xxx.xx.x
     ```
 
 3. Configure the Daemon Mirror.
