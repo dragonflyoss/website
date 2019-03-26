@@ -6,6 +6,11 @@ description: 本文介绍如何在docker上部署Dragonfly，包括supernode，d
 author: anjia0532
 date: 2019-03-25
 ---
+
+# 使用Dragonfly加速Docker镜像分发(基于0.3.0)
+
+<p align='right'>by <a href="https://github.com/anjia0532">anjia0532</a></p>
+
 ## 介绍
 如果说，微服务和容器是最佳拍档，那么模块多实例是肯定少不了。<br />假如没有使用类似 [Google jib](https://github.com/GoogleContainerTools/jib) 等手段进行镜像分层（利用镜像缓存），势必会造成
 * 带宽浪费：尤其是公网带宽，如果是自建harbor，那么会容易导致单节点网卡被打满，如果用了harbor联邦，又会导致数据同步等运维问题。
