@@ -1,167 +1,112 @@
 # Dragonfly 快速入门
 
-在本快速入门文档中，为了让您快速上手 Dragonfly，您首先要在 Docker 容器中启动一个 [SuperNode](overview/terminology.md)（服务端），并安装 Dragonfly 客户端，然后下载一个容器镜像或普通文件，这些下载工作可能是实际场景中经常要做的。
+快速入门文档旨在帮助您快速上手 Dragonfly，完成Dragonfly最精简的体验。如需在生产环境使用 Dragonfly 完成生产级别的镜像与文件分发，请参考 supernode 和 dfget 的详细生产级别配置参数。
 
 ## 前提条件
 
-Docker 容器已启动。
+我们假设快速入门需要用户准备3台机器，一台扮演 supernode 的角色，另外两台扮演 dfclient 的角色，拓扑结构图如下：
 
-## 步骤 1：在 Docker 容器中启动 SuperNode（服务端）
+![quick start cluster topology](./img/quick-start-topo.png)
 
-1. 拉取我们提供的 Docker 镜像。
+因此，您需要准备以下内容：
 
-    ```bash
-    # 将 ${imageName} 替换为真实镜像名称
-    docker pull ${imageName}
-    ```
+1. 准备三台在统一局域网的三台宿主机；
+2. 以上每台机器上都装有docker容器引擎。
 
-    **注意：** 请根据您所处的地理位置选择我们提供的一个镜像，并用其替换 `${imageName}`：
+## 步骤 1：部署 SuperNode（服务端）
 
-    - 中国：`registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1`
-    - 美国：`registry.us-west-1.aliyuncs.com/dragonflyoss/supernode:0.2.1`
+在以上三台机器中，找出一台机器用于部署Supernode（服务端）。
 
-2. 启动 SuperNode。
-
-    ```bash
-    # 将 ${imageName} 替换为真实镜像名称
-    docker run -d -p 8001:8001 -p 8002:8002 ${imageName}
-    ```
-
-例如，如果您在中国，则运行以下命令：
+1. 拉取我们提供的 Docker 镜像
 
 ```bash
-docker pull registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1
-
-docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1
+docker pull dragonflyoss/supernode:0.3.0
 ```
 
-## 步骤 2：安装 Dragonfly 客户端
-
-有两种方法可以安装 Dragonfly 客户端：从源码安装，或者通过拉取镜像来安装。
-
-### 方法 1：从源码安装
-
-1. 下载客户端的包。
-
-    ```bash
-    cd $HOME
-    # 将 ${package} 替换为适合您的操作系统和位置的包
-    wget ${package}
-    ```
-
-    **注意：** 请根据您所处的地理位置选择我们提供的一个包，并用其替换 `${package}`：
-
-    - 如果您在中国：
-
-        - [Linux 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz`
-
-        - [MacOS 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz`
-
-    - 如果您不在中国：
-
-        - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz`
-
-        - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz`
-
-2. 将包解压。
-
-    ```bash
-    # 将 ${package} 替换为适合您的操作系统和位置的包
-    tar -zxf ${package}
-    ```
-
-3. 将 `df-client` 目录添加到 `PATH` 环境变量，以便直接使用 `dfget` 和 `dfdaemon` 命令。
-
-    ```bash
-    # 执行或将这一行添加到 ~/.bashrc
-    export PATH=$PATH:$HOME/df-client/
-    ```
-
-例如，如果您在中国且使用 Linux，则运行以下命令：
+2. 启动 SuperNode
 
 ```bash
-cd $HOME
-wget http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz
-tar -zxf df-client_0.2.1_linux_amd64.tar.gz
-# 执行或将这一行添加到 ~/.bashrc
-export PATH=$PATH:$HOME/df-client/
+docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.0 -Dsupernode.advertiseIp=127.0.0.1
 ```
 
-### 方法 2：通过拉取镜像来安装
+## 步骤 2：修改 Docker Daemon 配置。
 
-1. 拉取我们提供的 Docker 镜像。
+三台宿主机中一台宿主机已经完成supernode的部署，紧接着我们需要将 Dragonfly 客户端（dfclient）部署在剩余两台机器上。
+在Dragonfly客户端部署在剩余两台机器之前，我们需要修改这两台机器上 Docker Daemon的配置文件，添加 `registry-mirrors`参数。
 
-    ```bash
-    docker pull dragonflyoss/dfclient:v0.3.0
-    ```
+1. 修改配置文件 `/etc/docker/daemon.json`。
 
-2. 启动 dfdaemon。
+```sh
+vi /etc/docker/daemon.json
+```
 
-    ```bash
-    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://xxx.xx.x
-    ```
+**提示：** 如需进一步了解 `/etc/docker/daemon.json`，请参考 [Docker 文档](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache)。
 
-3. 配置 Daemon 镜像。
+2. 在配置文件中添加或更新配置项 `registry-mirrors`。
 
-    a.修改配置文件 `/etc/docker/daemon.json`。
+```sh
+"registry-mirrors": ["http://127.0.0.1:65001"]
+```
 
-    ```sh
-    vi /etc/docker/daemon.json
-    ```
-
-    **提示：** 如需进一步了解 `/etc/docker/daemon.json`，请参考 [Docker 文档](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache)。
-
-    b.在配置文件中添加或更新配置项 `registry-mirrors`。
-
-    ```sh
-    "registry-mirrors": ["http://127.0.0.1:65001"]
-    ```
-
-    c.重启 Docker Daemon。
-
-    ```bash
-    systemctl restart docker
-    ```
-
-## 步骤 3：下载镜像或文件
-
-现在已经启动 SuperNode 并安装 Dragonfly 客户端，所以可以开始下载镜像或普通文件了。Dragonfly 支持下载这两类文件，但下载方法略有不同。
-
-### 场景 1：用 Dragonfly 下载普通文件
-
-安装 Dragonfly 客户端后，即可使用 `dfget` 命令下载文件。
+3. 重启 Docker Daemon。
 
 ```bash
-dfget -u 'https://github.com/dragonflyoss/Dragonfly/blob/master/docs/images/logo.png' -o /tmp/logo.png
+systemctl restart docker
 ```
 
-**提示：**如需进一步了解 dfget 命令，请参考 [dfget](cli_ref/dfget.md)。
+## 步骤 3：部署 Dragonfly 客户端
 
-### 场景 2：用 Dragonfly 拉取镜像
+完成Dragonfly客户端两台宿主机的Docker Daemon参数配置之后，我们可以将 Dragonfly 客户端（dfclient）部署在这两台机器上。
 
-1. 以指定的 Registry 启动 `dfdaemon`，例如 `https://index.docker.io`。
+1. 在两台机器上分别拉取我们提供的 Docker 镜像
 
-    ```bash
-    nohup dfdaemon --registry https://index.docker.io > /dev/null 2>&1 &
-    ```
+```bash
+docker pull dragonflyoss/dfclient:v0.3.0
+```
 
-2. 将以下这一行添加到 Dockerd 配置文件 [/etc/docker/daemon.json](https://docs.docker.com/registry/recipes/mirror/#configure-the-docker-daemon)。
+2. 在第一台Dragonfly客户端机器上，执行以下命令启动 Dragonfly 客户端
 
-    ```json
-    "registry-mirrors": ["http://127.0.0.1:65001"]
-    ```
+```bash
+docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+```
 
-3. 重启 Dockerd。
+3. 在第二台Dragonfly客户端机器上，执行以下命令启动 Dragonfly 客户端
 
-    ```bash
-    systemctl restart docker
-    ```
+```bash
+docker run -d --name dfclient02 -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+```
 
-4. 用 Dragonfly 拉取镜像。
+## 步骤 4：验证镜像P2P分发
 
-    ```bash
-    docker pull nginx:latest
-    ```
+部署完一个Supernode节点与两个dfclient节点之后，我们可以初步验证P2P镜像分发的功能是否生效。
+
+您只需在两台Dragonfly客户端节点上分别执行命令即可。
+
+```bash
+docker pull nginx:latest
+```
+
+在两台机器都成功下载完镜像之后，您可以选择一个Dragonfly客户端节点，执行以下命令，检验nginx镜像是否通过Dragonfly来传输完成。
+
+```bash
+docker exec dfclient01 grep 'downloading piece' /root/.small-dragonfly/logs/dfclient.log
+```
+
+如果以上命令有诸如
+
+```
+2019-03-29 15:49:53.913 INFO sign:96027-1553845785.119 : downloading piece:{"taskID":"00a0503ea12457638ebbef5d0bfae51f9e8e0a0a349312c211f26f53beb93cdc","superNode":"127.0.0.1","dstCid":"127.0.0.1-95953-1553845720.488","range":"67108864-71303167","result":503,"status":701,"pieceSize":4194304,"pieceNum":16}
+```
+
+则说明镜像下载通过Dragonfly来完成了。
+
+如果需要查看镜像是否通过其他peer节点来完成传输，可以执行以下命令：
+
+```bash
+docker exec dfclient01 grep 'downloading piece' /root/.small-dragonfly/logs/dfclient.log | grep -v cdnnode
+```
+
+如果以上命令没有输出结果，则说明镜像没有通过其他peer节点完成传输，否则说明通过其他peer节点完成传输。
 
 ## 相关文档
 
@@ -170,3 +115,4 @@ dfget -u 'https://github.com/dragonflyoss/Dragonfly/blob/master/docs/images/logo
 - [下载文件](userguide/download_files.md)
 - [SuperNode 配置](userguide/supernode_configuration.md)
 - [Dfget](cli_ref/dfget.md)
+- [Dfdameon](cli_ref/dfdaemon.md)

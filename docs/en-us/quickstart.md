@@ -1,167 +1,109 @@
 # Dragonfly Quick Start
 
-In this quick start guide, you will get a feeling of Dragonfly by starting a [SuperNode](overview/terminology.md) (the server) in your Docker container, installing the Dragonfly client (the client), and then downloading a container image and a general file, which are likely what you'll be doing frequently in your use case.
+Dragonfly Quick Start document aims to help you to quick start Dragonfly journey. This experiement is quite easy and simplified. If you are using Dragonfly in your production environment to handle production image distribution, please refer to supernode and dfget's detailed production parameter configuration.
 
 ## Prerequisites
 
-You have started your Docker container.
+Assuming that quick start experiement requires us to prepare three host machines, one to play a role of supernode, and the other two for dfclient. Then the topology of the three nodes cluster is like the following:
 
-## Step 1: Starting a SuperNode (the Server) in Your Docker Container
+![quick start cluster topology](./img/quick-start-topo.png)
+
+Then, we must provice:
+
+1. three host nodes in a LAN
+2. every node has deployed docker daemon
+
+## Step 1: Deploy SuperNode (Dragonfly Server)
+
+Above three nodes we prepared, we choose one for deploying supernode. 
 
 1. Pull the docker image we provided.
 
-    ```bash
-    # Replace ${imageName} with the real image name
-    docker pull ${imageName}
-    ```
-
-    **Note:** Choose one of the images we provide according to your geo-location, and replace `${imageName}` with it:
-
-    - China: `registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1`
-    - US: `registry.us-west-1.aliyuncs.com/dragonflyoss/supernode:0.2.1`
+```bash
+docker pull dragonflyoss/supernode:0.3.0
+```
 
 2. Start a SuperNode.
 
-    ```bash
-    # Replace ${imageName} with the real image name
-    docker run -d -p 8001:8001 -p 8002:8002 ${imageName}
-    ```
-
-For example, if you're in China, run the following commands:
-
 ```bash
-docker pull registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1
-
-docker run -d -p 8001:8001 -p 8002:8002 registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.2.1
+docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.0 -Dsupernode.advertiseIp=127.0.0.1
 ```
 
-## Step 2: Installing Dragonfly Client
+## Step 2. Configure Docker Daemon
 
-You have two options of installing Dragonfly client: installing from source code, or installing by pulling the image.
+After deploying Supernode in one node successfully, we should deploy dfclient(Dragonfly Client) on each of the rest two nodes. However, before deploying dfclient, we must configure Docker Daemon on both two nodes to add parameter `registry-mirrors`.
 
-### Option 1: Installing from Source Code
+1. Modify the configuration file `/etc/docker/daemon.json`.
 
-1. Download a package of the client.
-
-    ```bash
-    cd $HOME
-    # Replace ${package} with a package appropriate for your operating system and location
-    wget ${package}
-    ```
-
-    **Note:** Choose one of the packages we provide according to your geo-location, and replace `${package}` with it:
-
-    - If you're in China:
-
-        - [Linux 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz`
-
-        - [MacOS 64-bit](http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz): `http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_darwin_amd64.tar.gz`
-
-    - If you're not in China:
-
-        - [Linux 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_linux_amd64.tar.gz`
-
-        - [MacOS 64-bit](https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz): `https://github.com/dragonflyoss/Dragonfly/releases/download/v0.2.1/df-client_0.2.1_darwin_amd64.tar.gz`
-
-2. Unzip the package.
-
-    ```bash
-    # Replace ${package} with a package appropriate for your operating system and location
-    tar -zxf ${package}
-    ```
-
-3. Add the directory of `df-client` to your `PATH` environment variable to make sure you can directly use `dfget` and `dfdaemon` command.
-
-    ```bash
-    # Execute or add this line to ~/.bashrc
-    export PATH=$PATH:$HOME/df-client/
-    ```
-
-For example, if you're in China and using Linux, run the following commands:
-
-```bash
-cd $HOME
-wget http://dragonflyoss.oss-cn-hangzhou.aliyuncs.com/df-client_0.2.1_linux_amd64.tar.gz
-tar -zxf df-client_0.2.1_linux_amd64.tar.gz
-# execute or add this line to ~/.bashrc
-export PATH=$PATH:$HOME/df-client/
+```sh
+vi /etc/docker/daemon.json
 ```
 
-### Option 2: Installing by Pulling the Image
+**Tip:** For more information on `/etc/docker/daemon.json`, see [Docker documentation](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache).
 
-1. Pull the docker image we provided.
+2. Add or update the configuration item `registry-mirrors` in the configuration file.
 
-    ```bash
-    docker pull dragonflyoss/dfclient:v0.3.0
-    ```
-
-2. Start dfdaemon.
-
-    ```bash
-    docker run -d -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://xxx.xx.x
-    ```
-
-3. Configure the Daemon Mirror.
-
-    a. Modify the configuration file `/etc/docker/daemon.json`.
-
-    ```sh
-    vi /etc/docker/daemon.json
-    ```
-
-    **Tip:** For more information on `/etc/docker/daemon.json`, see [Docker documentation](https://docs.docker.com/registry/recipes/mirror/#configure-the-cache).
-
-    b. Add or update the configuration item `registry-mirrors` in the configuration file.
-
-    ```sh
-    "registry-mirrors": ["http://127.0.0.1:65001"]
-    ```
-
-    c. Restart Docker daemon.
-
-    ```bash
-    systemctl restart docker
-    ```
-
-## Step 3: Downloading Images or Files
-
-Now that you have started your SuperNode, and installed Dragonfly client, you can start downloading images or general files, both of which are supported by Dragonfly, but with slightly different downloading methods.
-
-### Use Case 1: Downloading a General File with Dragonfly
-
-Once you have installed the Dragonfly client, you can use the `dfget` command to download a file.
-
-```bash
-dfget -u 'https://github.com/dragonflyoss/Dragonfly/blob/master/docs/images/logo.png' -o /tmp/logo.png
+```sh
+"registry-mirrors": ["http://127.0.0.1:65001"]
 ```
 
-**Tip:** For more information on the dfget command, see [dfget](cli_ref/dfget.md).
+3. Restart Docker Daemon。
 
-### Use Case 2: Pulling an Image with Dragonfly
+```bash
+systemctl restart docker
+```
 
-1. Start `dfdaemon` with a specified registry, such as `https://index.docker.io`.
+## Step 3：Deploy dfclient (Dragonfly Client)
 
-    ```bash
-    nohup dfdaemon --registry https://index.docker.io > /dev/null 2>&1 &
-    ```
+After configuring both two nodes' docker daemon, we can start to deploy dfclient on them.
 
-2. Add the following line to the dockerd configuration file [/etc/docker/daemon.json](https://docs.docker.com/registry/recipes/mirror/#configure-the-docker-daemon).
+1. Pull dfclient on each of two nodes:
 
-    ```json
-    "registry-mirrors": ["http://127.0.0.1:65001"]
-    ```
+```bash
+docker pull dragonflyoss/dfclient:v0.3.0
+```
 
-3. Restart dockerd.
+2. execute the command on the first of the two nodes to start dfclient
 
-    ```bash
-    systemctl restart docker
-    ```
+```bash
+docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+```
 
-4. Download an image with Dragonfly.
+3. execute the command on the second of the two nodes to start dfclient
 
-    ```bash
-    docker pull nginx:latest
-    ```
+```bash
+docker run -d --name dfclient02 -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+```
+
+## Step 4：Validate Dragonfly
+
+After deploying one supernode and two dfclients, we can start to validate if Dragonfly works as expected. You can execute the following command on both two dfclient nodes at the same time to pull the same image.
+
+```bash
+docker pull nginx:latest
+```
+
+You can choose one dfclient node to execute the following command to check if the nginx image is distributed via Dragonfly.
+
+```bash
+docker exec dfclient01 grep 'downloading piece' /root/.small-dragonfly/logs/dfclient.log
+```
+
+If the output of command above has content like
+
+```
+2019-03-29 15:49:53.913 INFO sign:96027-1553845785.119 : downloading piece:{"taskID":"00a0503ea12457638ebbef5d0bfae51f9e8e0a0a349312c211f26f53beb93cdc","superNode":"127.0.0.1","dstCid":"127.0.0.1-95953-1553845720.488","range":"67108864-71303167","result":503,"status":701,"pieceSize":4194304,"pieceNum":16}
+```
+
+then Dragonfly is proved to work successfully.
+
+If you need to check if the image is distributed not only from supernode, but also from other peer node(dfclient), you can execute the following command:
+
+```bash
+docker exec dfclient01 grep 'downloading piece' /root/.small-dragonfly/logs/dfclient.log | grep -v cdnnode
+```
+
+If no output displays, then it means image distribution has not happened among dfclient. Otherwise, it works.
 
 ## Related Topics
 
@@ -170,3 +112,4 @@ dfget -u 'https://github.com/dragonflyoss/Dragonfly/blob/master/docs/images/logo
 - [Downloading Files](userguide/download_files.md)
 - [SuperNode Configuration](userguide/supernode_configuration.md)
 - [Dfget](cli_ref/dfget.md)
+- [Dfdameon](cli_ref/dfdaemon.md)
