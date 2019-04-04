@@ -114,6 +114,10 @@ export default {
                 title: '超级节点配置',
                 link: '/zh-cn/docs/userguide/supernode_configuration.html',
               },
+              {
+                title: '多机部署',
+                link: '/zh-cn/docs/userguide/multi_machines_deployment.html',
+              },
             ],
           },
           {
