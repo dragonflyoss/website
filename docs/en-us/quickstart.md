@@ -29,6 +29,8 @@ docker pull dragonflyoss/supernode:0.3.0
 docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.0 -Dsupernode.advertiseIp=127.0.0.1
 ```
 
+> **NOTE**: `supernode.advertiseIp` should be the ip that clients can connect to, `127.0.0.1` here is an example for testing.
+
 ## Step 2. Configure Docker Daemon
 
 After deploying Supernode in one node successfully, we should deploy dfclient(Dragonfly Client) on each of the rest two nodes. However, before deploying dfclient, we must configure Docker Daemon on both two nodes to add parameter `registry-mirrors`.
