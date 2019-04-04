@@ -29,6 +29,8 @@ docker pull dragonflyoss/supernode:0.3.0
 docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.0 -Dsupernode.advertiseIp=127.0.0.1
 ```
 
+> **注意**：`supernode.advertiseIp`必须是客户端能够连通的ip，例子中的`127.0.0.1`是为了方便测试。
+
 ## 步骤 2：修改 Docker Daemon 配置。
 
 三台宿主机中一台宿主机已经完成supernode的部署，紧接着我们需要将 Dragonfly 客户端（dfclient）部署在剩余两台机器上。
