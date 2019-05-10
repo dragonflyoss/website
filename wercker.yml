@@ -1,4 +1,4 @@
-box: node
+box: node:8.16-alpine
 build:
   steps:
     - npm-install
@@ -7,9 +7,10 @@ build:
       code: |
         echo "node version $(node -v) running"
         echo "npm version $(npm -v) running"
-        npm i docsite
+        npm i docsite || return
         npm i
-        node_modules/docsite/bin/docsite.js build
+        echo 'docsite build...'
+        node_modules/docsite/bin/docsite.js build || return
         echo 'node_modules/' > .gitignore
         echo 'npm-debug.log' >> .gitignore
 
