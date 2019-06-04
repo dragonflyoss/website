@@ -1,4 +1,4 @@
-box: node:8.16-alpine
+box: node:8.16
 build:
   steps:
     - npm-install
