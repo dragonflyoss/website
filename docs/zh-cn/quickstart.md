@@ -12,7 +12,7 @@
 
 ```bash
 docker run -d --name supernode --restart=always -p 8001:8001 -p 8002:8002 \
-    dragonflyoss/supernode:0.3.0 -Dsupernode.advertiseIp=127.0.0.1
+    dragonflyoss/supernode:0.3.1 -Dsupernode.advertiseIp=127.0.0.1
 ```
 
 > **注意**：`supernode.advertiseIp`必须是客户端能够连通的ip，`127.0.0.1`仅在服务端和客户端同机情况下才可使用。
@@ -20,7 +20,7 @@ docker run -d --name supernode --restart=always -p 8001:8001 -p 8002:8002 \
 ## 步骤 2：部署 Dragonfly 客户端
 
 ```bash
-docker run -d --name dfclient -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+docker run -d --name dfclient -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
 ```
 
 > **提示**：`--registry`参数指定镜像仓库地址，`https://index.docker.io`为官方镜像仓库，您也可以设置为其他仓库地址。
