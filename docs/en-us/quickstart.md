@@ -20,13 +20,13 @@ Above three nodes we prepared, we choose one for deploying supernode.
 1. Pull the docker image we provided.
 
 ```bash
-docker pull dragonflyoss/supernode:0.3.0
+docker pull dragonflyoss/supernode:0.3.1
 ```
 
 2. Start a SuperNode.
 
 ```bash
-docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.0 -Dsupernode.advertiseIp=127.0.0.1
+docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.1 -Dsupernode.advertiseIp=127.0.0.1
 ```
 
 > **NOTE**: `supernode.advertiseIp` should be the ip that clients can connect to, `127.0.0.1` here is an example for testing.
@@ -62,19 +62,19 @@ After configuring both two nodes' docker daemon, we can start to deploy dfclient
 1. Pull dfclient on each of two nodes:
 
 ```bash
-docker pull dragonflyoss/dfclient:v0.3.0
+docker pull dragonflyoss/dfclient:0.3.1
 ```
 
 2. execute the command on the first of the two nodes to start dfclient
 
 ```bash
-docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
 ```
 
 3. execute the command on the second of the two nodes to start dfclient
 
 ```bash
-docker run -d --name dfclient02 -p 65001:65001 dragonflyoss/dfclient:v0.3.0 --registry https://index.docker.io
+docker run -d --name dfclient02 -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
 ```
 
 ## Step 4：Validate Dragonfly
