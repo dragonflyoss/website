@@ -8,7 +8,7 @@ Assuming that quick start experiement requires us to prepare three host machines
 
 ![quick start cluster topology](./img/quick-start-topo.png)
 
-Then, we must provice:
+Then, we must make sure the following requirements:
 
 1. three host nodes in a LAN
 2. every node has deployed docker daemon
