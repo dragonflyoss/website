@@ -20,10 +20,10 @@ docker run -d --name supernode --restart=always -p 8001:8001 -p 8002:8002 \
 ## 步骤 2：部署 Dragonfly 客户端
 
 ```bash
-docker run -d --name dfclient -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
+docker run -d --name dfclient -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io --node 127.0.0.1:8002
 ```
 
-> **提示**：`--registry`参数指定镜像仓库地址，`https://index.docker.io`为官方镜像仓库，您也可以设置为其他仓库地址。
+> **提示**：`--registry`参数指定镜像仓库地址，`https://index.docker.io`为官方镜像仓库，您也可以设置为其他仓库地址；`--node`参数指定 supernode 的监听地址，`127.0.0.1:8002`仅在服务端和客户端同机情况下才可使用。
 
 ## 步骤 3：修改 Docker Daemon 配置
 
