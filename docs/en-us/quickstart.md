@@ -68,7 +68,7 @@ docker pull dragonflyoss/dfclient:0.3.1
 2. execute the command on the first of the two nodes to start dfclient
 
 ```bash
-docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
+docker run -d --name dfclient01 -p 65002:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
 ```
 
 3. execute the command on the second of the two nodes to start dfclient
