@@ -16,7 +16,7 @@ pages:
   zh-cn:
    title: '社区'
    keywords: '关键词1，关键词2'
-   description: 'Dragonfly的社区'
+   description: 'Dragonfly社区'
   # community page config
   en-us:
    title: 'Community'
@@ -27,7 +27,7 @@ pages:
   zh-cn:
    title: '博客'
    keywords: '关键词1，关键词2'
-   description: 'Dragonfly的博客'
+   description: 'Dragonfly博客'
   en-us:
    # blog list page config
    title: 'Blog'
