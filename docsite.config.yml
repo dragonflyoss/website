@@ -5,31 +5,31 @@ pages:
   zh-cn:
    title: 'Dragonfly'
    keywords: '关键词1，关键词2'
-   description: '页面内容简介'
+   description: '一个开源的基于P2P镜像及文件分发系统'
   # home config
   en-us:
    title: 'Dragonfly'
    keywords: 'keyword1,keyword2'
-   description: 'page description'
+   description: 'An Open-source P2P-based Image and File Distribution System'
  community:
   # 社区页配置
   zh-cn:
    title: '社区'
    keywords: '关键词1，关键词2'
-   description: '页面内容简介'
+   description: 'Dragonfly社区'
   # community page config
   en-us:
    title: 'Community'
    keywords: 'keyword1,keyword2'
-   description: 'page description'
+   description: 'Dragonfly Community'
  blog:
   # 博客列表页配置
   zh-cn:
    title: '博客'
    keywords: '关键词1，关键词2'
-   description: '页面内容简介'
+   description: 'Dragonfly博客'
   en-us:
    # blog list page config
    title: 'Blog'
    keywords: 'keyword1,keyword2'
-   description: 'page description'
+   description: 'Dragonfly Blog'
