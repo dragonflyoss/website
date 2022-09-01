@@ -74,7 +74,7 @@ docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:0.3.1 --reg
 3. execute the command on the second of the two nodes to start dfclient
 
 ```bash
-docker run -d --name dfclient02 -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
+docker run -d --name dfclient02 -p 65002:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
 ```
 
 ## Step 4：Validate Dragonfly
