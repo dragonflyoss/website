@@ -1,0 +1,24 @@
+box: node:8.16
+build:
+  steps:
+    - npm-install
+    - script:
+      name: docsite build
+      code: |
+        echo "node version $(node -v) running"
+        echo "npm version $(npm -v) running"
+        npm i docsite@1.3.9 || return
+        npm i
+        echo 'docsite build...'
+        node_modules/docsite/bin/docsite.js build || return
+        echo 'node_modules/' > .gitignore
+        echo 'npm-debug.log' >> .gitignore
+
+deploy:
+  steps:
+    - install-packages:
+        packages: git ssh-client
+    - lukevivier/gh-pages@0.2.1:
+        token: $GIT_TOKEN
+        domain: $GITPAGES_DOMAIN
+        basedir: ./

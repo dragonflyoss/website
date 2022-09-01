@@ -1,0 +1,6 @@
+{
+  "filename": "terminology.md",
+  "__html": "<h1>Dragonfly 术语</h1>\n<p>本文列出了 Dragonfly 的常用术语。</p>\n<h2>SuperNode</h2>\n<p>SuperNode 是一个常驻进程，主要有两个作用：</p>\n<ul>\n<li>它是 P2P 网络中的追踪者和调度者，负责为每个对等节点（Peer）选择适当的下载网络路径。</li>\n<li>它也是 CDN 服务端，会缓存从源下载的数据，以避免反复下载相同的文件。</li>\n</ul>\n<h2>dfget</h2>\n<p>dfget 是 Dragonfly 用于下载文件的客户端。它与 wget 类似。</p>\n<p>同时，它也扮演对等节点（Peer）的角色，可在 P2P 网络中与其他对等节点互相传输数据。</p>\n<h2>dfdaemon</h2>\n<p>dfdaemon 仅用于拉取镜像。它会在 dockerd/pouchd 和 Registry 之间建立代理。</p>\n<p>dfdaemon 会从 dockerd/pouchd 拉取镜像时发送的全部请求中筛选出获取分层的请求，然后使用 dfget 下载这些分层。</p>\n",
+  "link": "/zh-cn/docs/overview/terminology.html",
+  "meta": {}
+}

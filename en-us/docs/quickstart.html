@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="quickstart" />
+    <meta name="description" content="quickstart" />
+    <!-- 网页标签标题 -->
+    <title>quickstart</title>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+    <link rel="stylesheet" href="/build/documentation.css" />
+  </head>
+  <body>
+    <div id="root"><div class="documentation-page" data-reactroot=""><header class="header-container header-container-normal"><div class="header-body"><a href="/en-us/index.html"><img class="logo" src="https://img.alicdn.com/tfs/TB1ThlOucfpK1RjSZFOXXa6nFXa-266-72.png"/></a><div class="search search-normal"><span class="icon-search"></span></div><span class="language-switch language-switch-normal">中</span><div class="header-menu"><img class="header-menu-toggle" src="/img/system/menu_gray.png"/><ul><li class="menu-item menu-item-normal"><a href="/en-us/index.html" target="_self">HOME</a></li><li class="menu-item menu-item-normal menu-item-normal-active"><a href="/en-us/docs/overview/what_is_dragonfly.html" target="_self">DOCS</a></li><li class="menu-item menu-item-normal"><a href="/en-us/blog/index.html" target="_self">BLOG</a></li><li class="menu-item menu-item-normal"><a href="/en-us/community/index.html" target="_self">COMMUNITY</a></li></ul></div></div></header><div class="bar"><div class="bar-body"><img src="https://img.alicdn.com/tfs/TB1sfAnt9zqK1RjSZFHXXb3CpXa-160-160.png" class="front-img"/><span>Documentation</span><img src="https://img.alicdn.com/tfs/TB1sfAnt9zqK1RjSZFHXXb3CpXa-160-160.png" class="back-img"/></div></div><section class="content-section"><div class="sidemenu"><div class="sidemenu-toggle"><img src="https://img.alicdn.com/tfs/TB1E6apXHGYBuNjy0FoXXciBFXa-200-200.png"/></div><ul><li class="menu-item menu-item-level-1"><span>User Docs</span><ul><li style="height:108px;overflow:hidden" class="menu-item menu-item-level-2"><span>Overview<img style="transform:rotate(0deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/en-us/docs/overview/what_is_dragonfly.html" target="_self">What is Dragonfly?</a></li><li class="menu-item menu-item-level-3"><a href="/en-us/docs/overview/terminology.html" target="_self">Terminology</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/en-us/docs/quickstart.html" target="_self">Quick Start</a></li><li style="height:180px;overflow:hidden" class="menu-item menu-item-level-2"><span>User Guide<img style="transform:rotate(0deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/en-us/docs/userguide/install_server.html" target="_self">Installing Server</a></li><li class="menu-item menu-item-level-3"><a href="/en-us/docs/userguide/install_client.html" target="_self">Installing Client</a></li><li class="menu-item menu-item-level-3"><a href="/en-us/docs/userguide/download_files.html" target="_self">Downloading Files</a></li><li class="menu-item menu-item-level-3"><a href="/en-us/docs/userguide/supernode_configuration.html" target="_self">Supernode Configuration</a></li></ul></li><li style="height:108px;overflow:hidden" class="menu-item menu-item-level-2"><span>CLI Reference<img style="transform:rotate(0deg)" class="menu-toggle" src="/img/system/arrow_down.png"/></span><ul><li class="menu-item menu-item-level-3"><a href="/en-us/docs/cli_ref/dfdaemon.html" target="_self">dfdaemon</a></li><li class="menu-item menu-item-level-3"><a href="/en-us/docs/cli_ref/dfget.html" target="_self">dfget</a></li></ul></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/en-us/docs/api.html" target="_self">API Reference</a></li><li style="height:36px;overflow:hidden" class="menu-item menu-item-level-2"><a href="/en-us/docs/faq.html" target="_self">FAQ</a></li></ul></li></ul></div><div class="doc-content markdown-body"><h1>Dragonfly Quick Start</h1>
+<p>Dragonfly Quick Start document aims to help you to quick start Dragonfly journey. This experiement is quite easy and simplified. If you are using Dragonfly in your production environment to handle production image distribution, please refer to supernode and dfget's detailed production parameter configuration.</p>
+<h2>Prerequisites</h2>
+<p>Assuming that quick start experiement requires us to prepare three host machines, one to play a role of supernode, and the other two for dfclient. Then the topology of the three nodes cluster is like the following:</p>
+<p><img src="./img/quick-start-topo.png" alt="quick start cluster topology"></p>
+<p>Then, we must make sure the following requirements:</p>
+<ol>
+<li>three host nodes in a LAN</li>
+<li>every node has deployed docker daemon</li>
+</ol>
+<h2>Step 1: Deploy SuperNode (Dragonfly Server)</h2>
+<p>Above three nodes we prepared, we choose one for deploying supernode.</p>
+<ol>
+<li>Pull the docker image we provided.</li>
+</ol>
+<pre><code class="language-bash">docker pull dragonflyoss/supernode:0.3.1
+</code></pre>
+<ol start="2">
+<li>Start a SuperNode.</li>
+</ol>
+<pre><code class="language-bash">docker run -d -p 8001:8001 -p 8002:8002 dragonflyoss/supernode:0.3.1 -Dsupernode.advertiseIp=127.0.0.1
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong>: <code>supernode.advertiseIp</code> should be the ip that clients can connect to, <code>127.0.0.1</code> here is an example for testing.</p>
+</blockquote>
+<h2>Step 2. Configure Docker Daemon</h2>
+<p>After deploying Supernode in one node successfully, we should deploy dfclient(Dragonfly Client) on each of the rest two nodes. However, before deploying dfclient, we must configure Docker Daemon on both two nodes to add parameter <code>registry-mirrors</code>.</p>
+<ol>
+<li>Modify the configuration file <code>/etc/docker/daemon.json</code>.</li>
+</ol>
+<pre><code class="language-sh">vi /etc/docker/daemon.json
+</code></pre>
+<p><strong>Tip:</strong> For more information on <code>/etc/docker/daemon.json</code>, see <a href="https://docs.docker.com/registry/recipes/mirror/#configure-the-cache">Docker documentation</a>.</p>
+<ol start="2">
+<li>Add or update the configuration item <code>registry-mirrors</code> in the configuration file.</li>
+</ol>
+<pre><code class="language-sh"><span class="hljs-string">"registry-mirrors"</span>: [<span class="hljs-string">"http://127.0.0.1:65001"</span>]
+</code></pre>
+<ol start="3">
+<li>Restart Docker Daemon。</li>
+</ol>
+<pre><code class="language-bash">systemctl restart docker
+</code></pre>
+<h2>Step 3：Deploy dfclient (Dragonfly Client)</h2>
+<p>After configuring both two nodes' docker daemon, we can start to deploy dfclient on them.</p>
+<ol>
+<li>Pull dfclient on each of two nodes:</li>
+</ol>
+<pre><code class="language-bash">docker pull dragonflyoss/dfclient:0.3.1
+</code></pre>
+<ol start="2">
+<li>execute the command on the first of the two nodes to start dfclient</li>
+</ol>
+<pre><code class="language-bash">docker run -d --name dfclient01 -p 65001:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
+</code></pre>
+<ol start="3">
+<li>execute the command on the second of the two nodes to start dfclient</li>
+</ol>
+<pre><code class="language-bash">docker run -d --name dfclient02 -p 65002:65001 dragonflyoss/dfclient:0.3.1 --registry https://index.docker.io
+</code></pre>
+<h2>Step 4：Validate Dragonfly</h2>
+<p>After deploying one supernode and two dfclients, we can start to validate if Dragonfly works as expected. You can execute the following command on both two dfclient nodes at the same time to pull the same image.</p>
+<pre><code class="language-bash">docker pull nginx:latest
+</code></pre>
+<p>You can choose one dfclient node to execute the following command to check if the nginx image is distributed via Dragonfly.</p>
+<pre><code class="language-bash">docker <span class="hljs-built_in">exec</span> dfclient01 grep <span class="hljs-string">'downloading piece'</span> /root/.small-dragonfly/logs/dfclient.log
+</code></pre>
+<p>If the output of command above has content like</p>
+<pre><code>2019-03-29 15:49:53.913 INFO sign:96027-1553845785.119 : downloading piece:{&quot;taskID&quot;:&quot;00a0503ea12457638ebbef5d0bfae51f9e8e0a0a349312c211f26f53beb93cdc&quot;,&quot;superNode&quot;:&quot;127.0.0.1&quot;,&quot;dstCid&quot;:&quot;127.0.0.1-95953-1553845720.488&quot;,&quot;range&quot;:&quot;67108864-71303167&quot;,&quot;result&quot;:503,&quot;status&quot;:701,&quot;pieceSize&quot;:4194304,&quot;pieceNum&quot;:16}
+</code></pre>
+<p>then Dragonfly is proved to work successfully.</p>
+<p>If you need to check if the image is distributed not only from supernode, but also from other peer node(dfclient), you can execute the following command:</p>
+<pre><code class="language-bash">docker <span class="hljs-built_in">exec</span> dfclient01 grep <span class="hljs-string">'downloading piece'</span> /root/.small-dragonfly/logs/dfclient.log | grep -v cdnnode
+</code></pre>
+<p>If no output displays, then it means image distribution has not happened among dfclient. Otherwise, it works.</p>
+<h2>Related Topics</h2>
+<ul>
+<li><a href="userguide/install_server.md">Installing Server</a></li>
+<li><a href="userguide/install_client.md">Installing Client</a></li>
+<li><a href="userguide/download_files.md">Downloading Files</a></li>
+<li><a href="userguide/supernode_configuration.md">SuperNode Configuration</a></li>
+<li><a href="cli_ref/dfget.md">Dfget</a></li>
+<li><a href="cli_ref/dfdaemon.md">Dfdameon</a></li>
+</ul>
+</div></section><footer class="footer-container"><div class="footer-body"><img src="https://img.alicdn.com/tfs/TB1H9Eht9zqK1RjSZPxXXc4tVXa-266-72.png"/><div class="cols-container"><div class="col col-12"><h3>Vision</h3><p>Dragonfly is dedicated to improving the efficiency of large-scale file distribution, building the go-to solution and standards of container image distribution, and providing you with file and image distribution service which is efficient, easy-to-use, and of high availability.</p></div><div class="col col-6"><dl><dt>Documentation</dt><dd><a href="/en-us/docs/overview/what_is_dragonfly.html" target="_self">What is Dragonfly?</a></dd><dd><a href="/en-us/docs/quickstart.html" target="_self">Quick Start</a></dd><dd><a href="/en-us/docs/userguide/install_server.html" target="_self">Installing Server</a></dd><dd><a href="/en-us/docs/userguide/install_client.html" target="_self">Installing Client</a></dd><dd><a href="/en-us/docs/userguide/download_files.html" target="_self">Downloading Files</a></dd></dl></div><div class="col col-6"><dl><dt>Resources</dt><dd><a href="/en-us/blog/index.html" target="_self">Blog</a></dd><dd><a href="/en-us/community/index.html" target="_self">Community</a></dd></dl></div></div><div class="copyright"><span>Copyright © 2018 dragonflyoss<!-- --> | <a href="https://www.cnzz.com/stat/website.php?web_id=1275746144" target="_blank"><img border="0" hspace="0" vspace="0" src="https://icon.cnzz.com/img/pic.gif"/></a></span></div></div></footer></div></div>
+    <script src="https://f.alicdn.com/react/15.4.1/react-with-addons.min.js"></script>
+    <script src="https://f.alicdn.com/react/15.4.1/react-dom.min.js"></script>
+    <script>
+      window.rootPath = '';
+    </script>
+    <script src="/build/documentation.js"></script>
+    <script src="https://s23.cnzz.com/z_stat.php?id=1275746144&web_id=1275746144&show=none" language="JavaScript"></script>
+  </body>
+</html>

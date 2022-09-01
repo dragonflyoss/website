@@ -1,0 +1,138 @@
+{
+  "en-us": [
+    {
+      "filename": "announcing-nydus.md",
+      "link": "/en-us/blog/announcing-nydus.html",
+      "meta": {
+        "hidden": "false",
+        "title": "Introducing Dragonfly Container Image Service",
+        "keywords": "dragonfly, container image, OCI, nydus",
+        "description": "Announcing Dragonfly container image service to greatly improve container startup pulling speed and image access security.",
+        "author": "Peng Tao, Liu Bo",
+        "date": "2020-10-23"
+      }
+    },
+    {
+      "filename": "china-mobile-practice-en.md",
+      "link": "/en-us/blog/china-mobile-practice-en.html",
+      "meta": {
+        "hidden": "false",
+        "title": "Dragonfly adoption in DCOS of China Mobile Group Zhejiang Co., Ltd",
+        "keywords": "dragonfly,china mobile",
+        "description": "This article mainly describes Dragonfly's implementation in the container cloud platform (DCOS) at China Mobile Group Zhejiang Co., Ltd to resolve problems in the large-scale cluster scenario, such as low distribution efficiency, low success rate, and difficult network bandwidth control. In addition, Dragonfly upgraded its features and established high availability deployment based on feedback from the DCOS platform to the community.",
+        "author": "Chen Yuanzheng, Wang Miaoxin",
+        "date": "2019-6-3"
+      }
+    },
+    {
+      "filename": "containerd_accepted_nydus-snapshotter.md",
+      "link": "/en-us/blog/containerd_accepted_nydus-snapshotter.html",
+      "meta": {
+        "hidden": "false",
+        "title": "Containerd Accepted Nydus-snapshotter",
+        "keywords": "dragonfly, container image, OCI, nydus, nydus-snapshotter, containerd",
+        "description": "Announcing Containerd accepted nydus-snapshotter as a sub-project",
+        "author": "Changwei Ge",
+        "date": "2022-01-17"
+      }
+    },
+    {
+      "filename": "example.md",
+      "link": "/en-us/blog/example.html",
+      "meta": {
+        "hidden": "true",
+        "title": "title",
+        "keywords": "keywords1,keywords2",
+        "description": "some description",
+        "author": "author name",
+        "date": "2018-12-23"
+      }
+    }
+  ],
+  "zh-cn": [
+    {
+      "filename": "announcing-nydus.md",
+      "link": "/zh-cn/blog/announcing-nydus.html",
+      "meta": {
+        "hidden": "false",
+        "title": "Dragonfly 发布 Nydus 容器镜像加速服务",
+        "keywords": "dragonfly, container image, OCI, nydus",
+        "description": "Dragonfly 发布 Nydus 容器镜像加速服务,提供容器极速启动能力。",
+        "author": "彭涛, 刘博",
+        "date": "2020-10-23"
+      }
+    },
+    {
+      "filename": "china-mobile-practice.md",
+      "link": "/zh-cn/blog/china-mobile-practice.html",
+      "meta": {
+        "hidden": "false",
+        "title": "浙江移动容器云基于 Dragonfly 的统一文件分发平台生产实践",
+        "keywords": "dragonfly,china mobile",
+        "description": "浙江移动容器云（DCOS）平台以 Dragonfly 为改革“利器”，成功解决了运营商大规模集群场景下分发效率低、成功率低以及网络带宽控制难等问题；并反哺社区，在 Dragonfly 界面功能、生产高可用部署层面对 Dragonfly 进行了升级。",
+        "author": "陈远峥, 王淼鑫",
+        "date": "2018-12-18"
+      }
+    },
+    {
+      "filename": "d7y-dfdaemon.md",
+      "link": "/zh-cn/blog/d7y-dfdaemon.html",
+      "meta": {
+        "hidden": "false",
+        "title": "使用Dragonfly加速Docker镜像分发(基于0.3.0)",
+        "keywords": "docker, dragonfly",
+        "description": "本文介绍如何在docker上部署Dragonfly，包括supernode，dfdaemon，dfget。",
+        "author": "anjia0532",
+        "date": "2019-03-25"
+      }
+    },
+    {
+      "filename": "d7y-private-registry.md",
+      "link": "/zh-cn/blog/d7y-private-registry.html",
+      "meta": {
+        "hidden": "false",
+        "title": "阿里Dragonfly体验之私有registry下载(基于0.3.0)",
+        "keywords": "docker, dragonfly",
+        "description": "本文介绍如何在docker上部署Dragonfly，包括supernode，dfdaemon，dfget。",
+        "author": "anjia0532",
+        "date": "2019-03-30"
+      }
+    },
+    {
+      "filename": "deploy-dragonfly-on-k8s.md",
+      "link": "/zh-cn/blog/deploy-dragonfly-on-k8s.html",
+      "meta": {
+        "hidden": "false",
+        "title": "在Kubernetes上部署Dragonfly",
+        "keywords": "kubernetes, dragonfly",
+        "description": "本文介绍如何在Kubernetes上部署Dragonfly，包括supernode，dfdaemon，dfget。",
+        "author": "shenlanse",
+        "date": "2018-12-22"
+      }
+    },
+    {
+      "filename": "example.md",
+      "link": "/zh-cn/blog/example.html",
+      "meta": {
+        "hidden": "true",
+        "title": "文章标题",
+        "keywords": "关键词1，关键词2",
+        "description": "文章的简单描述",
+        "author": "作者名称",
+        "date": "2018-12-23"
+      }
+    },
+    {
+      "filename": "wise2c_deploy_dragonfly_https.md",
+      "link": "/zh-cn/blog/wise2c_deploy_dragonfly_https.html",
+      "meta": {
+        "hidden": "false",
+        "title": "睿云智合基于 Dragonfly 支持docker proxy https",
+        "keywords": "dragonfly,wise2c",
+        "description": "本文档介绍了dragonfly 使用docker proxy 实现 https",
+        "author": "吴鹏",
+        "date": "2019-02-28"
+      }
+    }
+  ]
+}

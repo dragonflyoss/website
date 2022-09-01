@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="docker, dragonfly" />
+    <meta name="description" content="本文介绍如何在docker上部署Dragonfly，包括supernode，dfdaemon，dfget。" />
+    <!-- 网页标签标题 -->
+    <title>阿里Dragonfly体验之私有registry下载(基于0.3.0)</title>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+    <link rel="stylesheet" href="/build/blogDetail.css" />
+  </head>
+  <body>
+    <div id="root"><div class="blog-detail-page" data-reactroot=""><header class="header-container header-container-normal"><div class="header-body"><a href="/zh-cn/index.html"><img class="logo" src="https://img.alicdn.com/tfs/TB1ThlOucfpK1RjSZFOXXa6nFXa-266-72.png"/></a><div class="search search-normal"><span class="icon-search"></span></div><span class="language-switch language-switch-normal">En</span><div class="header-menu"><img class="header-menu-toggle" src="/img/system/menu_gray.png"/><ul><li class="menu-item menu-item-normal"><a href="/zh-cn/index.html" target="_self">首页</a></li><li class="menu-item menu-item-normal"><a href="/zh-cn/docs/overview/what_is_dragonfly.html" target="_self">文档</a></li><li class="menu-item menu-item-normal menu-item-normal-active"><a href="/zh-cn/blog/index.html" target="_self">博客</a></li><li class="menu-item menu-item-normal"><a href="/zh-cn/community/index.html" target="_self">社区</a></li></ul></div></div></header><section class="blog-content markdown-body"><h1>阿里Dragonfly体验之私有registry下载(基于0.3.0)</h1>
+<p align='right'>by <a href="https://github.com/anjia0532">anjia0532</a></p>
+<p>书接上篇<a href="https://juejin.im/post/5c98a8e9f265da60e346fe04"> 012-P2P加速Docker镜像分发(阿里Dragonfly)</a> ,讲解了如何快速搭建Dragonfly,但是访问的是公开镜像，本文主要讲解如何下载私有镜像。</p>
+<!-- more -->
+<p><a name="12267079"></a></p>
+<h2>实验环境</h2>
+<p><a name="65227369"></a></p>
+<h3>主机</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>主机名</th>
+<th>系统</th>
+<th>ip</th>
+<th>docker version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>supernode</td>
+<td>d7y-1</td>
+<td>Ubuntu Server 16.04.6 LTS X64</td>
+<td>192.168.0.75</td>
+<td>17.06.2ubuntu</td>
+</tr>
+<tr>
+<td>clinet1</td>
+<td>d7y-2</td>
+<td>Ubuntu Server 16.04.6 LTS X64</td>
+<td>192.168.0.76</td>
+<td>17.06.2ubuntu</td>
+</tr>
+<tr>
+<td>clinet2</td>
+<td>d7y-3</td>
+<td>Ubuntu Server 16.04.6 LTS X64</td>
+<td>192.168.0.77</td>
+<td>17.06.2ubuntu</td>
+</tr>
+</tbody>
+</table>
+<p><a name="592cc647"></a></p>
+<h3>私有registry</h3>
+<p>本次以<a href="https://cr.console.aliyun.com/cn-qingdao/instances/repositories">阿里云私有镜像库</a>为例，可以自行开通。</p>
+<p><a name="c40e1e5e"></a></p>
+<h3>文档之坑</h3>
+<p>官方文档比较简单,甚至带有误导性，下意识的以为应该在dfdaemon节点上配置auth信息，并且配的是真实的私有registry，如果真这么搞了，肯定被坑。（但是也能解释通，比较绕，dfdaemon本身就是一个伪装成registry，用来加速私有registry，那么登陆信息就应该换成dfdaemon ip，只是示例不太恰当而已，对初学者相当不友好倒是真的）<br /><img src="https://user-gold-cdn.xitu.io/2019/3/30/169cc9884d2539d1?w=922&amp;h=546&amp;f=png&amp;s=67579" alt="image.png"></p>
+<p><a name="494e38bf"></a></p>
+<h2>supernode步骤</h2>
+<p><a name="71e91348"></a></p>
+<h3>安装supernode</h3>
+<pre><code class="language-bash">root@d7y-1:~<span class="hljs-comment"># docker run --name dragonfly-supernode --restart=always \</span>
+              -d -p 8001:8001 -p 8002:8002 -v /data/dragonfly/supernode:/home/admin/supernode \
+              registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.3.0 \
+              -Dsupernode.advertiseIp=192.168.0.75
+
+root@d7y-1:~<span class="hljs-comment"># docker ps</span>
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED              STATUS              PORTS                              NAMES
+be7fb931db0b        registry.cn-hangzhou.aliyuncs.com/dragonflyoss/supernode:0.3.0   <span class="hljs-string">"/bin/sh -c '/root..."</span>   About a minute ago   Up About a minute   0.0.0.0:8001-8002-&gt;8001-8002/tcp   dragonfly-supernode
+
+root@d7y-1:/data/dragonfly/supernode/logs<span class="hljs-comment"># cat app.log </span>
+2019-03-30 01:04:40.065 INFO  [      main] c.d.d.s.SuperNodeStarter       - Starting SuperNodeStarter on be7fb931db0b with PID 9 (/supernode.jar started by root <span class="hljs-keyword">in</span> /)
+2019-03-30 01:04:40.069 INFO  [      main] c.d.d.s.SuperNodeStarter       - No active profile <span class="hljs-built_in">set</span>, falling back to default profiles: default
+2019-03-30 01:04:42.151 INFO  [      main] c.d.d.s.c.SupernodeProperties  - init <span class="hljs-built_in">local</span> ip of supernode, use ip:192.168.0.75
+2019-03-30 01:04:42.253 INFO  [      main] c.d.d.s.c.SupernodeProperties  - cluster members: [{<span class="hljs-string">"downloadPort"</span>:8001,<span class="hljs-string">"ip"</span>:<span class="hljs-string">"localhost"</span>,<span class="hljs-string">"registerPort"</span>:8002}]
+2019-03-30 01:04:42.263 INFO  [      main] c.d.d.s.c.util.MonitorService  - available processors count is 4
+2019-03-30 01:04:42.272 ERROR [  Thread-2] c.d.d.s.c.util.MonitorService  - process fields:null error
+java.io.IOException: Cannot run program <span class="hljs-string">"tsar"</span>: error=2, No such file or directory
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at java.lang.Runtime.exec(Runtime.java:347)
+	at com.dragonflyoss.dragonfly.supernode.common.util.MonitorService<span class="hljs-variable">$1</span>.run(MonitorService.java:56)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.IOException: error=2, No such file or directory
+	at java.lang.UNIXProcess.forkAndExec(Native Method)
+	at java.lang.UNIXProcess.&lt;init&gt;(UNIXProcess.java:247)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:134)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 5 common frames omitted
+2019-03-30 01:04:43.507 INFO  [      main] c.d.d.s.SuperNodeStarter       - Started SuperNodeStarter <span class="hljs-keyword">in</span> 3.906 seconds (JVM running <span class="hljs-keyword">for</span> 4.59)
+2019-03-30 01:04:49.472 INFO  [  spring-1] c.d.d.s.s.p.PreheatServiceImpl - deleteExpiresPreheatTask, count:0
+</code></pre>
+<p>从 <code>2019-03-30 01:04:42.151 INFO  [      main] c.d.d.s.c.SupernodeProperties  - init local ip of supernode, use ip:192.168.0.75</code>  看，启动ip设置成功.</p>
+<p>注意，官方的镜像没改时区，默认是UTC时间，比北京东八区早8小时。</p>
+<p><a name="2537d15e"></a></p>
+<h3>登陆私有registry并推送镜像</h3>
+<pre><code class="language-bash">root@d7y-1:~<span class="hljs-comment"># docker login https://registry.cn-qingdao.aliyuncs.com </span>
+Username: //你阿里云账号
+Password: //你阿里云密码
+Login Succeeded
+root@d7y-1:~<span class="hljs-comment"># docker pull nginx:alpine</span>
+root@d7y-1:~<span class="hljs-comment"># docker tag nginx:alpine registry.cn-qingdao.aliyuncs.com/d7y-test/nginx:alpine</span>
+root@d7y-1:~<span class="hljs-comment"># docker push registry.cn-qingdao.aliyuncs.com/d7y-test/nginx:alpine</span>
+alpine: digest: sha256:857e6f195df0e9b497be0c7fad0f013126407aaeb71edcef66a24e8b990d94b3 size: 1153
+</code></pre>
+<p><a name="5b37fed5"></a></p>
+<h2>dfdaemon 步骤</h2>
+<p><a name="fe0b02fa"></a></p>
+<h3>安装dfdaemon</h3>
+<p>在两台client节点分别执行如下命令</p>
+<pre><code class="language-bash">root@d7y-2:~<span class="hljs-comment"># cat &lt;&lt;EOD &gt;/etc/dragonfly.conf</span>
+[node]
+address=192.168.0.75
+EOD
+root@d7y-2:~<span class="hljs-comment"># docker run --name dragonfly-dfclient --restart=always \</span>
+						-d -p 65001:65001 -v /root/.small-dragonfly:/root/.small-dragonfly \
+            -v /etc/dragonfly.conf:/etc/dragonfly.conf dragonflyoss/dfclient:v0.3.0 \
+            --registry=https://registry.cn-qingdao.aliyuncs.com  --ratelimit 100M
+Unable to find image <span class="hljs-string">'dragonflyoss/dfclient:v0.3.0'</span> locally
+v0.3.0: Pulling from dragonflyoss/dfclient
+169185f82c45: Pull complete 
+f58f64214283: Pull complete 
+bd8f062dc2d2: Pull complete 
+Digest: sha256:5bcabd5b34f4da0c2d489c8f99a23a401fb9ec57e54d4fa90457a93c5a85371f
+Status: Downloaded newer image <span class="hljs-keyword">for</span> dragonflyoss/dfclient:v0.3.0
+b491e90489a584119b82ca934cf2ae087abc136f7f9de3542e14fb12bc1c7512
+
+root@d7y-2:~<span class="hljs-comment"># cat &lt;&lt;EOD &gt;/etc/docker/daemon.json</span>
+{
+<span class="hljs-string">"registry-mirrors"</span>: [<span class="hljs-string">"http://127.0.0.1:65001"</span>]
+}
+EOD
+root@d7y-2:~<span class="hljs-comment"># systemctl restart docker </span>
+
+root@d7y-2:~<span class="hljs-comment"># docker ps</span>
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                      NAMES
+b491e90489a5        dragonflyoss/dfclient:v0.3.0   <span class="hljs-string">"/dfclient/dfdaemo..."</span>   28 seconds ago      Up 4 seconds        0.0.0.0:65001-&gt;65001/tcp   dragonfly-dfclient
+
+root@d7y-2:~/.small-dragonfly/logs<span class="hljs-comment"># cat dfdaemon.log</span>
+2019-03-30 01:18:21.331 INFO sign:1 : init...
+2019-03-30 01:18:21.331 INFO sign:1 : rotate <span class="hljs-built_in">log</span> routine start...
+2019-03-30 01:18:21.338 INFO sign:1 : dfget version:
+2019-03-30 01:18:21.338 ERRO sign:1 : init properties failed:open /etc/dragonfly/dfdaemon.yml: no such file or directory
+2019-03-30 01:18:21.338 INFO sign:1 : init properties:{<span class="hljs-string">"Registries"</span>:[{<span class="hljs-string">"Schema"</span>:<span class="hljs-string">"https"</span>,<span class="hljs-string">"Host"</span>:<span class="hljs-string">"registry.cn-qingdao.aliyuncs.com"</span>,<span class="hljs-string">"Certs"</span>:null,<span class="hljs-string">"Regx"</span>:<span class="hljs-string">"(^localhost$)|(^127.0.0.1$)|(^127.0.0.1$)"</span>}]}
+2019-03-30 01:18:21.338 INFO sign:1 : init finish
+2019-03-30 01:18:21.338 INFO sign:1 : start dfdaemon param: &amp;{DfPath:/dfclient/dfget DFRepo:/root/.small-dragonfly/dfdaemon/data/ RateLimit:100M CallSystem:com_ops_dragonfly URLFilter:Signature&amp;Expires&amp;OSSAccessKeyId Notbs:<span class="hljs-literal">true</span> MaxProcs:4 Version:<span class="hljs-literal">false</span> Verbose:<span class="hljs-literal">false</span> HostIP:127.0.0.1 Port:65001 Registry:https://registry.cn-qingdao.aliyuncs.com DownRule: CertFile: KeyFile: TrustHosts:[] ConfigPath:/etc/dragonfly/dfdaemon.yml}
+2019-03-30 01:18:21.338 INFO sign:1 : launch dfdaemon http server on 127.0.0.1:65001
+</code></pre>
+<p><a name="414f9e5b"></a></p>
+<h3>登陆dfdaemon</h3>
+<pre><code class="language-bash">root@d7y-2:~<span class="hljs-comment"># docker login http://127.0.0.1:65001</span>
+Username: //你阿里云账号
+Password: //你阿里云密码
+Login Succeeded
+root@d7y-2:~<span class="hljs-comment"># cat ~/.docker/config.json </span>
+{
+	<span class="hljs-string">"auths"</span>: {
+		<span class="hljs-string">"127.0.0.1:65001"</span>: {
+			<span class="hljs-string">"auth"</span>: <span class="hljs-string">"zzxxxxxx="</span>
+		}
+	}
+}
+
+</code></pre>
+<p><a name="c6e04966"></a></p>
+<h3>pull 私有镜像</h3>
+<pre><code class="language-bash">root@d7y-2:~<span class="hljs-comment"># docker pull 127.0.0.1:65001/d7y-test/nginx:alpine</span>
+alpine: Pulling from d7y-test/nginx
+8e402f1a9c57: Pull complete 
+56b0d9b69cc9: Pull complete 
+b66c8bb200cc: Pull complete 
+4ec77fc9c55f: Pull complete 
+Digest: sha256:857e6f195df0e9b497be0c7fad0f013126407aaeb71edcef66a24e8b990d94b3
+Status: Downloaded newer image <span class="hljs-keyword">for</span> 127.0.0.1:65001/d7y-test/nginx:alpine
+</code></pre>
+<p>可以通过iftop 等命令，观察流量。</p>
+<p><a name="0d98c747"></a></p>
+<h2>其他</h2>
+<p><a name="21b8fa6d"></a></p>
+<h3>排错</h3>
+<p>如果有遇到其他问题，可以通过查看日志来获取更多信息。<br />dfdaemon log : /root/.small-dragonfly/logs/{dfclient.log,dfdaemon.log,dfserver.log}<br />supernode log: /home/admin/supernode/{app.log,data-gc.log,downloader.log,piece-hit.log,space-gc.log}</p>
+<p><a name="269346af"></a></p>
+<h3>公开和私有registry混用</h3>
+<p>如果大量都是私有registry的话，可以在/etc/docker/daemon.json 中配置dfdaemon和加速器，如果是一半一半的话，那就干脆起两个dfdaemon就行了，一个--registry写私有的，一个--registry写公有的，然后也是配置 /etc/docker/daemon.json</p>
+<pre><code class="language-bash">cat /etc/docker/daemon.json 
+{
+  <span class="hljs-string">"registry-mirrors"</span>: [<span class="hljs-string">"http://127.0.0.1:65001"</span>,<span class="hljs-string">"https://xxx.mirror.aliyuncs.com"</span>],
+  <span class="hljs-string">"dns"</span>: [<span class="hljs-string">"223.5.5.5"</span>]
+}
+</code></pre>
+<p><a name="1075cc79"></a></p>
+<h3>吐槽</h3>
+<p>再次吐槽一下d7y的产品很好，解决了很大问题。但是这文档，真心不是给新手看的。从未见过如此坑多且深的文档。没见过哪家quick start 写的这么复杂。</p>
+<h3>鸣谢</h3>
+<p>非常感谢钉钉群内的 d7y 的 contributor <a href="https://github.com/lowzj">太云-lowzj</a> 耐心解答，从开始研究d7y开始，遇到的很多坑都是在   <a href="https://github.com/lowzj">太云-lowzj</a> 帮助下蹚过去的。但是还是觉得，如果文档足够友好，肯定会减少群内被打扰的次数，进而节省自己时间的。<br />
+<img src="https://user-gold-cdn.xitu.io/2019/3/30/169cca03f3465da0?w=436&amp;h=153&amp;f=png&amp;s=12860" alt="image.png"></p>
+<p><a name="fb674066"></a></p>
+<h2>招聘小广告</h2>
+<p>山东济南的小伙伴欢迎投简历啊 <a href="https://www.shunnengnet.com/index.php/Home/Contact/join.html">加入我们</a> , 一起搞事情。</p>
+<p>长期招聘，Java程序员，大数据工程师，运维工程师，前端工程师。</p>
+</section><footer class="footer-container"><div class="footer-body"><img src="https://img.alicdn.com/tfs/TB1H9Eht9zqK1RjSZPxXXc4tVXa-266-72.png"/><div class="cols-container"><div class="col col-12"><h3>愿景</h3><p>Dragonfly 致力于解决大规模文件分发的效率问题，打造容器镜像分发的第一解决方案和标准规范，并为用户提供高可用、高效率以及简单易用的文件及镜像分发服务。</p></div><div class="col col-6"><dl><dt>文档</dt><dd><a href="/zh-cn/docs/overview/what_is_dragonfly.html" target="_self">什么是 Dragonfly？</a></dd><dd><a href="/zh-cn/docs/quickstart.html" target="_self">快速开始</a></dd><dd><a href="/en-us/docs/userguide/install_server.html" target="_self">安装服务端</a></dd><dd><a href="/en-us/docs/userguide/install_client.html" target="_self">安装客户端</a></dd><dd><a href="/en-us/docs/userguide/download_files.html" target="_self">下载文件</a></dd></dl></div><div class="col col-6"><dl><dt>资源</dt><dd><a href="/zh-cn/blog/index.html" target="_self">博客</a></dd><dd><a href="/zh-cn/community/index.html" target="_self">社区</a></dd></dl></div></div><div class="copyright"><span>Copyright © 2018 dragonflyoss<!-- --> | <a href="https://www.cnzz.com/stat/website.php?web_id=1275746144" target="_blank"><img border="0" hspace="0" vspace="0" src="https://icon.cnzz.com/img/pic.gif"/></a></span></div></div></footer></div></div>
+    <script src="https://f.alicdn.com/react/15.4.1/react-with-addons.min.js"></script>
+    <script src="https://f.alicdn.com/react/15.4.1/react-dom.min.js"></script>
+    <script>
+      window.rootPath = '';
+    </script>
+    <script src="/build/blogDetail.js"></script>
+    <script src="https://s23.cnzz.com/z_stat.php?id=1275746144&web_id=1275746144&show=none" language="JavaScript"></script>
+  </body>
+</html>
