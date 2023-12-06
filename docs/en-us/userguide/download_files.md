@@ -5,26 +5,21 @@ Things are done differently when you download container images and download gene
 ## Prerequisites
 
 - You are using Linux operating system.
-- You have installed Python 2.7+, and added the Python directory to the `PATH` environment variable.
-- The SuperNode service is started.
+- The supernode service is started.
 
-    **Tip:** For more information on the dfget command, see [dfget](../cli_ref/dfget.md). For more information on the installation of supernodes, see [Installing Server](install_server.md).
+    **Tip:** For more information on the dfget command, see [dfget](../cli_reference/dfget.md). For more information on the installation of supernodes, see [Installing Server](./install_server.md).
 
 ## Downloading container images
 
-1. Specify the supernodes.
+1. Config the supernodes with the configuration file.
 
-    a. Open the Dragonfly configuration file.
-
-    ```sh
-    vi /etc/dragonfly.conf
-    ```
-
-    b. Add the IP of supernodes separated by comma to the configuration file.
-
-    ```sh
-    [node]
-    address=nodeIp1,nodeIp2
+    ```shell
+    cat <<EOD > /etc/dragonfly/dfget.yml
+    nodes:
+        - supernode01:port
+        - supernode02:port
+        - supernode03:port
+    EOD
     ```
 
 2. Start the dfget proxy (dfdaemon).
@@ -60,6 +55,24 @@ Things are done differently when you download container images and download gene
     systemctl restart docker
     ```
 
+    d. Add authentication info for the private docker registry in `~/.docker/config.json` if the registry is configured with auth.
+
+    ```json
+    {
+          "auths": {
+                  "https://index.docker.io/v1/": {
+                          "auth": "${auth_value}"
+                  }
+          }
+    }
+    ```
+
+    The ${auth_value} is `base64("${usename}:${password}")`.
+
+    ```bash
+    echo "${usename}:${password}" | base64
+    ```
+
 4. Download an image with Dragonfly.
 
     ```bash
@@ -75,25 +88,25 @@ Things are done differently when you download container images and download gene
     - Specifying with the configuration file.
 
         ```sh
-        # Open the Dragonfly configuration file.
-        vi /etc/dragonfly.conf
-
-        # Add the IP of supernodes separated by comma to the configuration file
-        [node]
-        address=nodeIp1,nodeIp2
-        ```
+        cat <<EOD > /etc/dragonfly/dfget.yml
+        nodes:
+            - supernode01:port
+            - supernode02:port
+            - supernode03:port
+        EOD
+         ```
 
     - Specifying with the parameter in the command line.
 
         ```sh
-        dfget -u "http://www.taobao.com" -o /tmp/test.html --node nodeIp1,nodeIp2
+        dfget -u "http://www.taobao.com" -o /tmp/test.html --node supernode01:port,supernode02:port,supernode03:port
         ```
 
         **Note:** When using this method, you must add the `node` parameter every time when you run the dfget command. And the parameter in the command line takes precedence over the configuration file.
 
 2. Download general files with Dragonfly in one of the following ways.
 
-    - Download files with the default `/etc/dragonfly.conf` configuration.
+    - Download files with the default `/etc/dragonfly/dfget.yml` configuration.
 
         ```sh
         dfget --url "http://xxx.xx.x"
@@ -104,7 +117,7 @@ Things are done differently when you download container images and download gene
     - Download files with your specified supernodes.
 
         ```sh
-        dfget --url "http://xxx.xx.x" --node "127.0.0.1"
+        dfget --url "http://xxx.xx.x" --node "127.0.0.1:8002"
         ```
 
     - Download files to your specified output file.
@@ -116,4 +129,3 @@ Things are done differently when you download container images and download gene
 ## After this Task
 
 To review the downloading log, run `less ~/.small-dragonfly/logs/dfclient.log`.
-
